@@ -4,37 +4,37 @@ const internal = {};
 
 export default internal.ItemModel = class{
   constructor({
-    ItemID,
-    ItemTypeID,
-    ItemPriorityID,
-    ItemStatusID,
-    SprintID,
-    AssigneeID,
-    ReporterID,
-    Summary,
-    Description,
-    TeamID,
-    CreatedBy,
-    CreatedDate,
-    UpdatedBy,
-    UpdatedDate
+    item_id,
+    item_type_id,
+    item_priority_id,
+    item_status_id,
+    sprint_id,
+    assignee_id,
+    reporter_id,
+    summary,
+    description,
+    team_id,
+    created_by,
+    created_date,
+    updated_by,
+    updated_date
   }) {
 
 
-    this.ItemID = ItemID;
-    this.ItemTypeID = ItemTypeID;
-    this.ItemPriorityID = ItemPriorityID;
-    this.ItemStatusID = ItemStatusID;
-    this.SprintID = SprintID;
-    this.AssigneeID = AssigneeID;
-    this.ReporterID = ReporterID;
-    this.Summary = Summary;
-    this.Description = Description;
-    this.TeamID = TeamID;
-    this.CreatedBy = CreatedBy;
-    this.CreatedDate = CreatedDate;
-    this.UpdatedBy = UpdatedBy;
-    this.UpdatedDate = UpdatedDate;
+    this.item_id = item_id;
+    this.item_type_id = item_type_id;
+    this.item_priority_id = item_priority_id;
+    this.item_status_id = item_status_id;
+    this.sprint_id = sprint_id;
+    this.assignee_id = assignee_id;
+    this.reporter_id = reporter_id;
+    this.summary = summary;
+    this.description = description;
+    this.team_id = team_id;
+    this.created_by = created_by;
+    this.created_date = created_date;
+    this.updated_by = updated_by;
+    this.updated_date = updated_date;
   }
 
 

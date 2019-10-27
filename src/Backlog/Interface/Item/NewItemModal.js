@@ -48,15 +48,15 @@ class NewItemModal extends React.Component {
         item_type_id: this.state.itemTypeID,
         item_priority_id: this.state.itemPriorityID,
         item_status_id: "1",
-        sprint_id: this.state.sprint.SprintID,
+        sprint_id: this.state.sprint.sprint_id,
         created_by: "system.user",
         created_date: now,
         updated_by: "system.user",
         updated_date: now
       }
     );
-    await item.CreateItem();
-    await this.props.loadData();
+    item.CreateItem();
+    this.props.loadData();
     // this.setState({open:false});
   };
 
