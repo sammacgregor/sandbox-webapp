@@ -12,7 +12,6 @@ export default internal.BoardModel = class {
         updated_by
     }) {
 
-        console.log('Initialise BoardModel');
         this.board_id = board_id;
         this.board_name = board_name;
         this.created_date = created_date;

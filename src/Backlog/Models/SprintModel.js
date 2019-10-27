@@ -16,7 +16,7 @@ export default internal.SprintModel = class {
         updated_by
     }) {
 
-        console.log('Initialise SprintModel');
+
         this.sprint_id = sprint_id;
         this.board_id = board_id;
         this.sprint_start_date = sprint_start_date;
@@ -52,9 +52,8 @@ CreateSprint() {
 
 
 async GetItems() {
-    let data = await new Promise(resolve => {
 
-        axios
+        return axios
             .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints/' + this.sprint_id + '/items')      
             .then(result => {
 
@@ -66,8 +65,6 @@ async GetItems() {
             .catch(error => {
                 console.error("error: ", error);
             })
-    })
-    return data;
 }
 
 

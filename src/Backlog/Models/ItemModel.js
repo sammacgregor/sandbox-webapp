@@ -20,7 +20,7 @@ export default internal.ItemModel = class{
     UpdatedDate
   }) {
 
-    console.log('Initialise ItemModel');
+
     this.ItemID = ItemID;
     this.ItemTypeID = ItemTypeID;
     this.ItemPriorityID = ItemPriorityID;

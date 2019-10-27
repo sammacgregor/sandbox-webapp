@@ -9,14 +9,10 @@ import ItemList from './ItemList';
 
 import NewItemModal from './NewItemModal';
 
-import axios from "axios";
-
-import sprint from '../../Models/SprintModel';
-
 import moment from 'moment';
 import SprintModel from '../../Models/SprintModel';
 
-class ItemsContainer extends React.Component {
+class SprintContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,43 +32,21 @@ class ItemsContainer extends React.Component {
   loadData = () => {
     this.setState({ loading: true });
 
-    // this.state.sprint.GetItems()
-    //   .then(result => {
-
-    //     if (result.error === true) {
-    //       this.setState({ error: true, loading: false })
-    //       console.log("got here!")
-
-    //     } else {
-    //       this.setState({ data: result.data, error: true, loading: false })
-    //       console.log("got here!")
-
-    //     }
-    //   })
-
-
-    var data = axios
-      .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints/'+ this.state.sprint.sprint_id +'/items')
+    var data = this.state.sprint.GetItems()
       .then(result => {
 
-        console.log(result);
-        this.setState({
-          data: result.data.data,
-          loading: false,
-          error: false
-        });
-      })
-      .catch(error => {
-        console.error("error: ", error);
-        this.setState({
-          // objects cannot be used as a react child
-          // -> <p>{error}</p> would throw otherwise
-          error: { error },
-          loading: false
-        });
-      });
+        if (result.error === true) {
+          this.setState({ error: true, loading: false })
 
-    return sprint;
+        } else {
+          this.setState({ data: result.data, error: false, loading: false })
+
+        }
+      })
+
+
+
+    return data;
   };
   componentDidMount() {
     this.loadData();
@@ -128,4 +102,4 @@ class ItemsContainer extends React.Component {
   }
 }
 
-export default ItemsContainer;
+export default SprintContainer;
