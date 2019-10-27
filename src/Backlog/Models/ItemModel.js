@@ -43,7 +43,7 @@ export default internal.ItemModel = class{
     return new Promise(resolve => {
 
     return axios
-      .post('http://localhost:3001/v1/items',
+      .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/items',
         this
       )
       .then(result => {

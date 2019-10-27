@@ -43,16 +43,16 @@ class NewItemModal extends React.Component {
 
     const item = new ItemModel(
       {
-        Summary: this.state.summary,
-        Description: this.state.description,
-        ItemTypeID: this.state.itemTypeID,
-        ItemPriorityID: this.state.itemPriorityID,
-        ItemStatusID: "1",
-        SprintID: this.state.sprint.SprintID,
-        CreatedBy: "system.user",
-        CreatedDate: now,
-        UpdatedBy: "system.user",
-        UpdatedDate: now
+        summary: this.state.summary,
+        description: this.state.description,
+        item_type_id: this.state.itemTypeID,
+        item_priority_id: this.state.itemPriorityID,
+        item_status_id: "1",
+        sprint_id: this.state.sprint.SprintID,
+        created_by: "system.user",
+        created_date: now,
+        updated_by: "system.user",
+        updated_date: now
       }
     );
     await item.CreateItem();

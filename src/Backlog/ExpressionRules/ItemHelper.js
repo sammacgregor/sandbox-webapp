@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import BugIcon from '@material-ui/icons/BugReport';
@@ -9,15 +8,6 @@ import LabelImportant from '@material-ui/icons/LabelImportant';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-
-const useStyles = makeStyles(theme => ({
-  successIcon: {
-    color: 'green'
-  },
-  errorIcon: {
-    color: 'red'
-  }
-}));
 
 
 

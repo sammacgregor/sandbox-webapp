@@ -11,18 +11,17 @@ import NewItemModal from './NewItemModal';
 
 import axios from "axios";
 
-import SprintModel from '../../Models/SprintModel';
-import BoardModel from '../../Models/BoardModel';
-import ItemModel from '../../Models/ItemModel';
+import sprint from '../../Models/SprintModel';
 
 import moment from 'moment';
+import SprintModel from '../../Models/SprintModel';
 
 class ItemsContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       board: this.props.board,
-      sprint: this.props.sprint,
+      sprint: new SprintModel(this.props.sprint),
       loading: true,
       error: false,
       data: []
@@ -37,33 +36,43 @@ class ItemsContainer extends React.Component {
   loadData = () => {
     this.setState({ loading: true });
 
+    // this.state.sprint.GetItems()
+    //   .then(result => {
 
-     
+    //     if (result.error === true) {
+    //       this.setState({ error: true, loading: false })
+    //       console.log("got here!")
 
-    
+    //     } else {
+    //       this.setState({ data: result.data, error: true, loading: false })
+    //       console.log("got here!")
 
-      var data = axios
-        .get('http://localhost:3001/v1/sprints/'+ this.state.sprint.SprintID +'/items')
-        .then(result => {
+    //     }
+    //   })
 
-          console.log(result);
-          this.setState({
-            data: result.data,
-            loading: false,
-            error: false
-          });
-        })
-        .catch(error => {
-          console.error("error: ", error);
-          this.setState({
-            // objects cannot be used as a react child
-            // -> <p>{error}</p> would throw otherwise
-            error: { error },
-            loading: false
-          });
+
+    var data = axios
+      .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints/'+ this.state.sprint.sprint_id +'/items')
+      .then(result => {
+
+        console.log(result);
+        this.setState({
+          data: result.data.data,
+          loading: false,
+          error: false
         });
+      })
+      .catch(error => {
+        console.error("error: ", error);
+        this.setState({
+          // objects cannot be used as a react child
+          // -> <p>{error}</p> would throw otherwise
+          error: { error },
+          loading: false
+        });
+      });
 
-        return data;
+    return sprint;
   };
   componentDidMount() {
     this.loadData();
@@ -75,8 +84,6 @@ class ItemsContainer extends React.Component {
 
   render() {
     const { loading, error, data } = this.state;
-
-
 
     if (loading) {
       return <p>Loading ...</p>;
@@ -90,17 +97,17 @@ class ItemsContainer extends React.Component {
       );
     }
     else return (
-      <div style={{'marginTop':"30px"}}>
+      <div style={{ 'marginTop': "30px" }}>
 
 
         <Card>
           <CardContent>
 
             <Typography variant="h5" component="h2">
-            
 
-              Sprint {this.state.sprint.SprintID}: {moment(this.state.sprint.SprintStartDate).format("DD-MM-YYYY")} to {moment(this.state.sprint.SprintEnd).format("DD-MM-YYYY")}
-        </Typography>
+
+              Sprint {this.state.sprint.sprint_id}: {moment(this.state.sprint.sprint_start_date).format("DD-MM-YYYY")} to {moment(this.state.sprint.SprintEnd).format("DD-MM-YYYY")}
+            </Typography>
             <Typography color="textSecondary">
               Items unassigned to a sprint will appear below
           </Typography>

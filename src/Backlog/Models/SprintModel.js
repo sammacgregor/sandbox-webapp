@@ -4,29 +4,29 @@ const internal = {};
 
 export default internal.SprintModel = class {
     constructor({
-        SprintID,
-        BoardID,
-        SprintStartDate,
-        SprintEndDate,
-        SprintActive,
-        SprintStoryPoints,
-        SprintTargetPoints,
-        CreatedBy,
-        UpdatedDate,
-        UpdatedBy
+        sprint_id,
+        board_id,
+        sprint_start_date,
+        sprint_end_date,
+        sprint_active,
+        sprint_story_points,
+        sprint_target_points,
+        created_by,
+        updated_date,
+        updated_by
     }) {
 
         console.log('Initialise SprintModel');
-        this.SprintID = SprintID;
-        this.BoardID = BoardID;
-        this.SprintStartDate = SprintStartDate;
-        this.SprintEndDate = SprintEndDate;
-        this.SprintActive = SprintActive;
-        this.SprintStoryPoints = SprintStoryPoints;
-        this.SprintTargetPoints = SprintTargetPoints;
-        this.CreatedBy = CreatedBy;
-        this.UpdatedDate = UpdatedDate;
-        this.UpdatedBy = UpdatedBy;
+        this.sprint_id = sprint_id;
+        this.board_id = board_id;
+        this.sprint_start_date = sprint_start_date;
+        this.sprint_end_date = sprint_end_date;
+        this.sprint_active = sprint_active;
+        this.sprint_story_points = sprint_story_points;
+        this.sprint_target_points = sprint_target_points;
+        this.created_by = created_by;
+        this.updated_date = updated_date;
+        this.updated_by = updated_by;
     };
 
 
@@ -36,7 +36,7 @@ CreateSprint() {
     return new Promise(resolve => {
 
         return axios
-            .post('http://localhost:3001/v1/sprints',
+            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints',
                 this
             )
             .then(result => {
@@ -51,16 +51,15 @@ CreateSprint() {
 }
 
 
-async GetItems(sprintID) {
+async GetItems() {
     let data = await new Promise(resolve => {
 
         axios
-            .get('http://localhost:3001/v1/sprints/' + sprintID + '/items')      
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints/' + this.sprint_id + '/items')      
             .then(result => {
 
-                console.log(result);
-                resolve();
-                return result;
+                console.log(result.data);
+                return result.data;
 
             })
 

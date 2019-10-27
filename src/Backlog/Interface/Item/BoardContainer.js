@@ -1,9 +1,6 @@
 
 import React from 'react';
-import ItemsContainer from './ItemsContainer';
-import axios from "axios";
-
-import SprintModel from '../../Models/SprintModel';
+import SprintContainer from './SprintContainer';
 import BoardModel from '../../Models/BoardModel';
 import Divider from '@material-ui/core/Divider';
 
@@ -16,8 +13,7 @@ class BoardContainer extends React.Component {
             board: null,
             sprints: [],
             loading: true,
-            error: false,
-            data: []
+            error: false
         };
     }
 
@@ -26,21 +22,21 @@ class BoardContainer extends React.Component {
     loadData = () => {
         this.setState({ loading: true });
 
-        var board = new BoardModel({ BoardID: this.state.boardID });
+        var board = new BoardModel({ board_id: 1 });
 
-        board.GetBoard(1).then(data => {
-            if (data.error=true) {
+        board.GetBoard(1).then(result => {
+            if (result.error===true) {
                 this.setState({ error: true })
 
             } else {
-                this.setState({ board: data[0] })
+                this.setState({ board: result.data })
 
             }
 
         })
 
-        board.GetSprints().then(data => {
-            this.setState({ sprints: data })
+        board.GetSprints().then(results => {
+            this.setState({ sprints: results.data })
             this.setState({ loading: false });
 
             // this.setState({ loading: false });
@@ -59,7 +55,7 @@ class BoardContainer extends React.Component {
 
 
     render() {
-        const { loading, error, data } = this.state;
+        const { loading, error } = this.state;
 
 
 
@@ -82,9 +78,9 @@ class BoardContainer extends React.Component {
 
                 {this.state.sprints.map(sprint =>
 
-                    <div key={sprint.SprintID}>
+                    <div key={sprint.sprint_id}>
 
-                        <ItemsContainer
+                        <SprintContainer
                             board={this.state.board}
                             sprint={sprint}
                         />

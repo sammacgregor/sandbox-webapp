@@ -4,21 +4,21 @@ const internal = {};
 
 export default internal.BoardModel = class {
     constructor({
-        BoardID,
-        BoardName,
-        CreatedDate,
-        CreatedBy,
-        UpdatedDate,
-        UpdatedBy
+        board_id,
+        board_name,
+        created_date,
+        created_by,
+        updated_date,
+        updated_by
     }) {
 
         console.log('Initialise BoardModel');
-        this.BoardID = BoardID;
-        this.BoardName = BoardName;
-        this.CreatedDate = CreatedDate;
-        this.CreatedBy = CreatedBy;
-        this.UpdatedDate = UpdatedDate;
-        this.UpdatedBy = UpdatedBy;
+        this.board_id = board_id;
+        this.board_name = board_name;
+        this.created_date = created_date;
+        this.created_by = created_by;
+        this.updated_date = updated_date;
+        this.updated_by = updated_by;
     }
 
 
@@ -28,7 +28,7 @@ export default internal.BoardModel = class {
         return new Promise(resolve => {
 
             return axios
-                .post('http://localhost:3001/v1/boards',
+                .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards',
                     this
                 )
                 .then(result => {
@@ -47,9 +47,9 @@ export default internal.BoardModel = class {
     GetBoard(boardID) {
 
         return axios
-            .get('http://localhost:3001/v1/boards/' + boardID)
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + boardID)
             .then(result => {
-                console.log(result);
+                console.log(result.data);
                 return result.data;
 
             })
@@ -63,10 +63,10 @@ export default internal.BoardModel = class {
 
     GetSprints() {
 
-        return axios
-            .get('http://localhost:3001/v1/boards/' + this.BoardID + '/sprints')
+        return axios 
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + this.board_id + '/sprints')
             .then(result => {
-                console.log(result);
+                console.log(result.data);
                 return result.data;
 
             })
