@@ -12,9 +12,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import MenuItem from '@material-ui/core/MenuItem';
 import moment from "moment";
 
-import ItemModel from '../../Models/ItemModel';
+import ItemModel from '../Models/ItemModel';
 
-import {LOOKUP_ITEM_PRIORITY,LOOKUP_ITEM_TYPE} from "../../ExpressionRules/ItemHelper";
+import {LOOKUP_ITEM_PRIORITY,LOOKUP_ITEM_TYPE} from "../ExpressionRules/ItemHelper";
 
 
 class NewItemModal extends React.Component {

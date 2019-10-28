@@ -61,9 +61,26 @@ export default internal.BoardModel = class {
 
 
     GetSprints() {
+        console.log("requested sprints for board: " + this.board_id)
 
         return axios 
             .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + this.board_id + '/sprints')
+            .then(result => {
+                console.log(result.data);
+                return result.data;
+
+            })
+            .catch(error => {
+                console.error("error: ", error);
+            })
+
+    }
+
+
+    GetBoards() {
+
+        return axios 
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards')
             .then(result => {
                 console.log(result.data);
                 return result.data;

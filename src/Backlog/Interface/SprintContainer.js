@@ -10,7 +10,7 @@ import ItemList from './ItemList';
 import NewItemModal from './NewItemModal';
 
 import moment from 'moment';
-import SprintModel from '../../Models/SprintModel';
+import SprintModel from '../Models/SprintModel';
 
 class SprintContainer extends React.Component {
   constructor(props) {

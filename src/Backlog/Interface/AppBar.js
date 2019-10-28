@@ -76,7 +76,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -92,9 +93,11 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
+  const handleMenuClose = (e) => {
     setAnchorEl(null);
+    props.setBoard(e.target.value);
     handleMobileMenuClose();
+
   };
 
   const handleMobileMenuOpen = event => {
@@ -112,8 +115,10 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {props.boards.map(board =>
+
+        <MenuItem onClick={handleMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
+      )}
     </Menu>
   );
 
@@ -160,8 +165,8 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="absolute" color="default" 
->
+      <AppBar position="absolute" color="default"
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -172,14 +177,14 @@ export default function PrimarySearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Backlog
+            Backlog - {props.test}
           </Typography>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
-          <Button className={classes.button}>Search</Button>
-          <Button className={classes.button}>Boards</Button>
+            <Button className={classes.button}>Search</Button>
+            <Button className={classes.button}>Boards</Button>
 
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">

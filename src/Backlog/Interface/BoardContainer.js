@@ -1,16 +1,16 @@
 
 import React from 'react';
 import SprintContainer from './SprintContainer';
-import BoardModel from '../../Models/BoardModel';
+import BoardModel from '../Models/BoardModel';
 import Divider from '@material-ui/core/Divider';
+
 
 
 class BoardContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            boardID: 1,
-            board: null,
+            board: this.props.board,
             sprints: [],
             loading: true,
             error: false
@@ -18,24 +18,12 @@ class BoardContainer extends React.Component {
     }
 
 
-
     loadData = () => {
+
         this.setState({ loading: true });
 
-        var board = new BoardModel({ board_id: 1 });
-
-        board.GetBoard(1).then(result => {
-            if (result.error===true) {
-                this.setState({ error: true })
-
-            } else {
-                this.setState({ board: result.data })
-
-            }
-
-        })
-
-        board.GetSprints().then(results => {
+        console.log(this.props.board);
+        this.state.board.GetSprints().then(results => {
             this.setState({ sprints: results.data })
             this.setState({ loading: false });
 
@@ -57,7 +45,7 @@ class BoardContainer extends React.Component {
     render() {
         const { loading, error } = this.state;
 
-
+        
 
         if (loading) {
             return <p>Loading ...</p>;
