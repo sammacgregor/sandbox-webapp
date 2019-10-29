@@ -2,7 +2,6 @@ import React from 'react';
 import List from '@material-ui/core/List';
 
 import SprintListItem from './SprintListItem';
-import Divider from '@material-ui/core/Divider';
 
 class ItemList extends React.Component {
   constructor(props) {
@@ -34,9 +33,8 @@ componentDidMount() {
 
             <div key={item.item_id}>
 
-              <SprintListItem data={item} />
+              <SprintListItem key={item.item_id} data={item} />
 
-              <Divider />
             </div>
           )} 
 

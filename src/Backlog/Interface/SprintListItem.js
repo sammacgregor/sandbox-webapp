@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
 
 import ItemMoreOptionsList from './ItemMoreOptionsList'
 
@@ -61,11 +62,13 @@ class SprintListItem extends React.Component {
                             <MoreHorizIcon />
                         </IconButton> */}
 
-                        <ItemMoreOptionsList />
+                        <ItemMoreOptionsList item={this.props.data}  cloneItem={this.props.cloneItem} deleteItem={this.props.deleteItem} />
 
 
                     </ListItemSecondaryAction>
                 </ListItem>
+                <Divider />
+
             </div >
         );
     }

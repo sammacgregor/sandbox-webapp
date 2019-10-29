@@ -63,7 +63,7 @@ class Backlog extends React.Component {
         if (this.state.loadingBoard) {
             return <p>Please choose a board</p>
         }
-        return <BoardContainer board={this.state.activeBoard} />
+        return <BoardContainer  key={this.state.activeBoard.board_id} board={this.state.activeBoard} />
     }
 
 
@@ -87,7 +87,6 @@ class Backlog extends React.Component {
             <div>
                 <AppBar
                     boards={this.state.boards}
-                    test="helloworld"
                     setBoard={this.setBoard}
                 />
                 {BoardContainer}

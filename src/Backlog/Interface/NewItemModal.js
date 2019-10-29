@@ -14,7 +14,7 @@ import moment from "moment";
 
 import ItemModel from '../Models/ItemModel';
 
-import {LOOKUP_ITEM_PRIORITY,LOOKUP_ITEM_TYPE} from "../ExpressionRules/ItemHelper";
+import { LOOKUP_ITEM_PRIORITY, LOOKUP_ITEM_TYPE } from "../ExpressionRules/ItemHelper";
 
 
 class NewItemModal extends React.Component {
@@ -26,8 +26,7 @@ class NewItemModal extends React.Component {
       itemPriorityID: "",
       itemTypeID: "",
       summary: "",
-      description: "",
-      newItem: new ItemModel({})
+      description: ""
     };
     this.handleCreate = this.handleCreate.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +36,7 @@ class NewItemModal extends React.Component {
     // this.setState({open:false});
   }
 
-  handleCreate = async (props) => {
+  handleCreate = () => {
 
     var now = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
 
@@ -47,7 +46,7 @@ class NewItemModal extends React.Component {
         description: this.state.description,
         item_type_id: this.state.itemTypeID,
         item_priority_id: this.state.itemPriorityID,
-        item_status_id: "1",
+        item_status_id: 1,
         sprint_id: this.state.sprint.sprint_id,
         created_by: "system.user",
         created_date: now,
@@ -55,13 +54,15 @@ class NewItemModal extends React.Component {
         updated_date: now
       }
     );
-    item.CreateItem();
-    this.props.loadData();
-    // this.setState({open:false});
+
+    this.props.addItem(item)
+    this.setState({ open: false })
+     
+
   };
 
 
-  
+
   handleChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -84,9 +85,9 @@ class NewItemModal extends React.Component {
     // const classes = useStyles();
 
 
-  
+
     const handleClickOpen = () => {
-      this.setState({ open: true });
+      this.setState({ open: true, itemPriorityID: "", itemTypeID: "", summary: "", description: "" });
     };
 
     const handleClose = () => {
@@ -94,13 +95,13 @@ class NewItemModal extends React.Component {
 
     };
 
- 
+
 
 
     return (
       <div>
 
-        <Button style={{marginTop:"10px"}} variant="outlined" color="primary" onClick={handleClickOpen}
+        <Button style={{ marginTop: "10px" }} variant="outlined" color="primary" onClick={handleClickOpen}
         //  className={classes.dialogButton}
         >
           New Item
@@ -133,14 +134,14 @@ class NewItemModal extends React.Component {
               select
               name="itemTypeID"
               label="Type"
-              value= {this.state.itemTypeID}
+              value={this.state.itemTypeID}
               onChange={this.handleChange}
               helperText="Select an item type"
               margin="normal"
             >
               {LOOKUP_ITEM_TYPE.map(option => (
-                
-                
+
+
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
                 </MenuItem>
@@ -163,7 +164,7 @@ class NewItemModal extends React.Component {
               select
               name="itemPriorityID"
               label="Priority"
-              value= {this.state.itemPriorityID}
+              value={this.state.itemPriorityID}
               onChange={this.handleChange}
               helperText="Select a priority"
               margin="normal"

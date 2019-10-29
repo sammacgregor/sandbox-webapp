@@ -39,33 +39,41 @@ export default internal.ItemModel = class{
 
 
 
+  DeleteItem() {
+
+    return axios
+      .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v2/items/' + this.item_id,
+        this
+      )
+      .then(result => {
+        console.log(result.data);
+        return result.data;
+
+
+      })
+      .catch(error => {
+        console.error("error: ", error);
+      })
+
+  }
+
+
+
  CreateItem() {
-    return new Promise(resolve => {
 
     return axios
       .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/items',
         this
       )
       .then(result => {
-        console.log(result);
-        resolve();
+        console.log(result.data);
+        return result.data;
 
-        // this.setState({
-        //   data: result.data,
-        //   loading: false,
-        //   error: false
-        // });
+
       })
       .catch(error => {
         console.error("error: ", error);
-        // // this.setState({
-        // //   // objects cannot be used as a react child
-        // //   // -> <p>{error}</p> would throw otherwise
-        // //   error: {error},
-        // //   loading: false
-        // });
       })
-    })
 
   }
 

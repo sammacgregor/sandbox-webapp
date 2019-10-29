@@ -1,10 +1,6 @@
 
 import React from 'react';
 import SprintContainer from './SprintContainer';
-import BoardModel from '../Models/BoardModel';
-import Divider from '@material-ui/core/Divider';
-
-
 
 class BoardContainer extends React.Component {
     constructor(props) {
@@ -45,7 +41,7 @@ class BoardContainer extends React.Component {
     render() {
         const { loading, error } = this.state;
 
-        
+
 
         if (loading) {
             return <p>Loading ...</p>;
@@ -62,17 +58,17 @@ class BoardContainer extends React.Component {
 
 
 
-            <div style={{'marginTop':"100px"}}>
-
+            <div style={{ 'marginTop': "100px" }}>
+                <h1>{this.state.board.board_name} board</h1>
                 {this.state.sprints.map(sprint =>
 
                     <div key={sprint.sprint_id}>
 
                         <SprintContainer
+                            key={sprint.sprint_id}
                             board={this.state.board}
                             sprint={sprint}
                         />
-                        <Divider />
 
 
                     </div>

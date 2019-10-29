@@ -13,34 +13,34 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 export const LOOKUP_ITEM_PRIORITY = [
   {
-    value: '1',
+    value: 1,
     label: 'Urgent',
   },
   {
-    value: '2',
+    value: 2,
     label: 'High',
   },
   {
-    value: '3',
+    value: 3,
     label: 'Normal',
   },
   {
-    value: '4',
+    value: 4,
     label: 'Low',
   },
 ];
 
 export const LOOKUP_ITEM_TYPE = [
   {
-    value: '1',
+    value: 1,
     label: 'User story',
   },
   {
-    value: '2',
+    value: 2,
     label: 'Epic',
   },
   {
-    value: '3',
+    value: 3,
     label: 'Defect',
   }
 ];

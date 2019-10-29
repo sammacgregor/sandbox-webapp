@@ -5,12 +5,16 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import ItemList from './ItemList';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+
+import SprintListItem from './SprintListItem';
 
 import NewItemModal from './NewItemModal';
 
 import moment from 'moment';
 import SprintModel from '../Models/SprintModel';
+import ItemModel from '../Models/ItemModel';
 
 class SprintContainer extends React.Component {
   constructor(props) {
@@ -24,10 +28,36 @@ class SprintContainer extends React.Component {
     };
   }
 
-  updateTest = () => {
-    this.setState({ error: "true" });
+
+  addItem = (item) => {
+
+    item.CreateItem().then(result => {
+      if(result.error === false) { 
+        this.updateItems(result.data)      
+      }
+    })
+    return item;
+    
+
+  };
+
+  updateItems = (item) => {
+    this.setState({ data: this.state.data.concat(item) });
+    console.log("adding item: " + item.item_id);
   }
 
+  deleteItem = (item) => {
+
+    var tempItem = new ItemModel(item);
+    console.log("deleting item: " + item.item_id)
+    var currentItems = this.state.data;
+    var index = currentItems.findIndex(x => x.item_id === item.item_id)
+    tempItem.DeleteItem()
+    if (index !== -1) {
+      currentItems.splice(index, 1);
+      this.setState({ data: currentItems });
+    }
+  }
 
   loadData = () => {
     this.setState({ loading: true });
@@ -53,11 +83,28 @@ class SprintContainer extends React.Component {
   }
 
 
+  getSprintItems = () => {
+    if (this.state.data.length < 1) {
+      return (<div><p>There are no items in this container</p></div>)
+    } else return (
 
+      <div>
+        <List component="nav" aria-label="facts about item">
+          {this.state.data.map(item =>
+            <div key={item.item_id}>
+              <SprintListItem cloneItem={this.addItem} deleteItem={this.deleteItem} key={item.item_id} data={item} />
+            </div>
+          )}
+        </List>
+      </div >
+    );
+  }
 
 
   render() {
-    const { loading, error, data } = this.state;
+    const { loading, error } = this.state;
+
+    var SprintListItems = this.getSprintItems();
 
     if (loading) {
       return <p>Loading ...</p>;
@@ -86,14 +133,19 @@ class SprintContainer extends React.Component {
               Items unassigned to a sprint will appear below
           </Typography>
 
-            <NewItemModal loadData={this.loadData} sprint={this.state.sprint} />
+            <NewItemModal addItem={this.addItem} sprint={this.state.sprint} />
 
-            <ItemList data={data} />
+            {SprintListItems}
+
+
+
+
           </CardContent>
           <CardActions>
             <Button size="small">View in search</Button>
           </CardActions>
         </Card>
+        <Divider />
 
 
 
