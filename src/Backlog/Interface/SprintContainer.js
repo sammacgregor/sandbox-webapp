@@ -11,7 +11,6 @@ import List from '@material-ui/core/List';
 import SprintListItem from './SprintListItem';
 
 import NewItemModal from './NewItemModal';
-
 import moment from 'moment';
 import SprintModel from '../Models/SprintModel';
 import ItemModel from '../Models/ItemModel';

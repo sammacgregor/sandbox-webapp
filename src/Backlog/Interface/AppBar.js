@@ -9,8 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 
@@ -79,9 +77,12 @@ const useStyles = makeStyles(theme => ({
 export default function PrimarySearchAppBar(props) {
 
   const classes = useStyles();
+  const [boardAnchorEl, setBoardAnchorEl] = React.useState(null);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const isBoardMenuOpen = Boolean(boardAnchorEl); 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -89,13 +90,36 @@ export default function PrimarySearchAppBar(props) {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleBoardMenuOpen = event => {
+    setBoardAnchorEl(event.currentTarget);
+  };
+
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
+  
+  const handleBoardMenuClose = (e) => {
+    setBoardAnchorEl(null);
+
+    if(!e.target.value) {} else 
+    {
+      props.setBoard(e.target.value);
+
+    }
+    handleMobileMenuClose();
+
+  };
+  
   const handleMenuClose = (e) => {
     setAnchorEl(null);
-    props.setBoard(e.target.value);
+
+    if(!e.target.value) {} else 
+    {
+      props.setBoard(e.target.value);
+
+    }
     handleMobileMenuClose();
 
   };
@@ -115,9 +139,27 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+    </Menu>
+  );
+
+
+  const boardMenuId = 'available-boards-menu';
+  const renderBoardMenu = (
+    <Menu
+      anchorEl={boardAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={boardMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isBoardMenuOpen}
+      onClose={handleBoardMenuClose}
+    >
       {props.boards.map(board =>
 
-        <MenuItem onClick={handleMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
+        <MenuItem onClick={handleBoardMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
       )}
     </Menu>
   );
@@ -133,21 +175,17 @@ export default function PrimarySearchAppBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
+
+<MenuItem onClick={handleBoardMenuOpen}>
+        <IconButton
+          aria-label="available boards"
+          aria-controls="primary-boards-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
         </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+        <p>Boards</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -184,18 +222,17 @@ export default function PrimarySearchAppBar(props) {
           <div className={classes.sectionDesktop}>
 
             <Button className={classes.button}>Search</Button>
-            <Button className={classes.button}>Boards</Button>
+            <Button
+             className={classes.button}
+             edge="end"
+             aria-label="avaiable boards menu"
+             aria-controls={boardMenuId}
+             aria-haspopup="true"
+             onClick={handleBoardMenuOpen}
+             color="inherit"
+            
+             >Boards</Button>
 
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -222,6 +259,7 @@ export default function PrimarySearchAppBar(props) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {renderBoardMenu}
     </div>
   );
 }

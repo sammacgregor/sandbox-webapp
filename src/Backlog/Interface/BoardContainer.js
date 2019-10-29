@@ -59,6 +59,7 @@ class BoardContainer extends React.Component {
 
 
             <div style={{ 'marginTop': "100px" }}>
+                
                 <h1>{this.state.board.board_name} board</h1>
                 {this.state.sprints.map(sprint =>
 

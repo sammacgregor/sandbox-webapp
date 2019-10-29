@@ -32,23 +32,24 @@ export default internal.SprintModel = class {
 
 
 
-CreateSprint() {
-    return new Promise(resolve => {
+    CreateSprint() {
 
         return axios
-            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints',
-                this
-            )
-            .then(result => {
-                console.log(result);
-                resolve();
+          .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints',
+            this
+          )
+          .then(result => {
+            console.log(result.data);
+            return result.data;
+    
+    
+          })
+          .catch(error => {
+            console.error("error: ", error);
+          })
+    
+      }
 
-            })
-            .catch(error => {
-                console.error("error: ", error);
-            })
-    })
-}
 
 
 async GetItems() {
