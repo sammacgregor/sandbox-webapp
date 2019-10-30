@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     display: 'none',
   },
 }));
-export default function BoardOptions() {
+export default function BoardOptions(props) {
   const classes = useStyles();
 
   return (
@@ -28,11 +28,11 @@ export default function BoardOptions() {
       <div>
         <Grid container spacing={3} justify="flex-end">
           <Grid item>
-            <SprintModal className={classes.button} />
+            <SprintModal board={props.board} addSprint={props.addSprint} className={classes.button} />
 
           </Grid>
           <Grid item>
-            <DeleteBoardModal className={classes.button} />
+            <DeleteBoardModal deleteBoard={props.deleteBoard} className={classes.button} />
 
           </Grid>
         </Grid>

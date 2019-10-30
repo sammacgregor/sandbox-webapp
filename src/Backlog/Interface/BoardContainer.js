@@ -80,7 +80,7 @@ class BoardContainer extends React.Component {
 
 
             <div style={{ 'marginTop': "100px" }}>
-                <BoardOptions addSprint={this.addSprint} deleteBoard={this.props.deleteBoard}/>
+                <BoardOptions board={this.state.board} addSprint={this.addSprint} deleteBoard={this.props.deleteBoard}/>
 
                 <h1>{this.state.board.board_name} board</h1>
 
