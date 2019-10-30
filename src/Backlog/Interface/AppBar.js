@@ -12,7 +12,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import BoardModel from '../Models/BoardModel';
+import BoardModal from './BoardModal';
 
 const useStyles = makeStyles(theme => ({
   grow: {
