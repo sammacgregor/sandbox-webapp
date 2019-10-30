@@ -18,7 +18,8 @@ class BoardModal extends React.Component {
     super(props);
     this.state = {
       open: false,
-      boardName: ""
+      boardName: "",
+      error: false
     };
     this.handleCreate = this.handleCreate.bind(this);
     this.handleChange = this.handleChange.bind(this);

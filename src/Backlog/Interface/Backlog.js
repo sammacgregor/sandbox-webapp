@@ -3,6 +3,7 @@ import React from 'react';
 import BoardContainer from './BoardContainer';
 import BoardModel from '../Models/BoardModel';
 import AppBar from './AppBar';
+import ErrorModal from './ErrorModal';
 
 
 class Backlog extends React.Component {
@@ -14,7 +15,8 @@ class Backlog extends React.Component {
             loading: true,
             loadingRefData: true,
             loadingBoard: true,
-            error: false
+            error: false,
+            errorModal: false
         };
     }
 
@@ -23,7 +25,10 @@ class Backlog extends React.Component {
 
         board.CreateBoard().then(result => {
           if(result.error === false) { 
+
             this.updateBoards(result.data)      
+          } else {
+                  this.setState({ errorModal: true })
           }
         })
         return board;
@@ -32,7 +37,7 @@ class Backlog extends React.Component {
       };
     
       updateBoards = (board) => {
-        this.setState({ data: this.state.data.concat(board) });
+        this.setState({ boards: this.state.boards.concat(board) });
         console.log("adding board: " + board.board_id);
       }
     
@@ -85,10 +90,18 @@ class Backlog extends React.Component {
     }
 
 
+    getErrorModal = () => {
+        if(this.state.errorModal) {
+          return <ErrorModal />
+        }
+      }
+
     render() {
         const { loading, error } = this.state;
 
         var BoardContainer = this.getBoardContainer();
+
+        var ErrorModal = this.getErrorModal();
 
         if (loading) {
             return <p>Loading ...</p>;
@@ -108,6 +121,7 @@ class Backlog extends React.Component {
                     setBoard={this.setBoard}
                     addBoard={this.addBoard}
                 />
+                {ErrorModal}
                 {BoardContainer}
             </div>
 
