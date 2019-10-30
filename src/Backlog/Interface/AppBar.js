@@ -79,7 +79,6 @@ export default function PrimarySearchAppBar(props) {
 
   const classes = useStyles();
   const [boardAnchorEl, setBoardAnchorEl] = React.useState(null);
-  const [open, setOpen] = React.useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -102,13 +101,7 @@ export default function PrimarySearchAppBar(props) {
   };
 
 
-  const addBoard = (board) => {
-
-    props.addBoard(board)
-     
-  }
-
-  
+ 
 
   const handleBoardMenuClose = (e) => {
     setBoardAnchorEl(null);
@@ -270,7 +263,7 @@ export default function PrimarySearchAppBar(props) {
       {renderMobileMenu}
       {renderMenu}
       {renderBoardMenu}
-      <BoardModal addBoard={this.addBoard} />
+      <BoardModal addBoard={props.addBoard} />
 
     </div>
   );

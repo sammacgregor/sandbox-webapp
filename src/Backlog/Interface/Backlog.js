@@ -33,7 +33,7 @@ class Backlog extends React.Component {
     
       updateBoards = (board) => {
         this.setState({ data: this.state.data.concat(board) });
-        console.log("adding item: " + board.board_id);
+        console.log("adding board: " + board.board_id);
       }
     
 
