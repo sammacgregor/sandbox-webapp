@@ -91,6 +91,9 @@ export default function PrimarySearchAppBar(props) {
     setAnchorEl(event.currentTarget);
   };
 
+
+
+
   const handleBoardMenuOpen = event => {
     setBoardAnchorEl(event.currentTarget);
   };
@@ -163,7 +166,8 @@ export default function PrimarySearchAppBar(props) {
         <MenuItem onClick={handleBoardMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
       )}
       <Divider />
-      <MenuItem onClick={addBoard}>New board</MenuItem>
+      <BoardModal addBoard={props.addBoard} />
+
     </Menu>
   );
 
@@ -263,7 +267,6 @@ export default function PrimarySearchAppBar(props) {
       {renderMobileMenu}
       {renderMenu}
       {renderBoardMenu}
-      <BoardModal addBoard={props.addBoard} />
 
     </div>
   );

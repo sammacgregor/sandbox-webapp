@@ -10,6 +10,7 @@ import moment from "moment";
 
 import BoardModel from '../Models/BoardModel';
 
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 class BoardModal extends React.Component {
@@ -79,12 +80,8 @@ class BoardModal extends React.Component {
 
     return (
       <div>
+      <MenuItem onClick={handleClickOpen}>New board</MenuItem>
 
-        <Button style={{ marginTop: "10px" }} variant="outlined" color="primary" onClick={handleClickOpen}
-        //  className={classes.dialogButton}
-        >
-          New Board
-      </Button>
         <Dialog
           open={this.state.open}
           onClose={handleClose}
