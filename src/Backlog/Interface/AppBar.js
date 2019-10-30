@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -105,8 +104,7 @@ export default function PrimarySearchAppBar(props) {
 
   const addBoard = (board) => {
 
-    this.props.addBoard(board)
-    setOpen(false)
+    props.addBoard(board)
      
   }
 

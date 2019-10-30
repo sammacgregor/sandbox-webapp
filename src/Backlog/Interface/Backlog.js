@@ -21,9 +21,9 @@ class Backlog extends React.Component {
 
     addBoard = (board) => {
 
-        board.CreateItem().then(result => {
+        board.CreateBoard().then(result => {
           if(result.error === false) { 
-            this.updateItems(result.data)      
+            this.updateBoards(result.data)      
           }
         })
         return board;
