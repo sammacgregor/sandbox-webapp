@@ -19,6 +19,24 @@ class Backlog extends React.Component {
     }
 
 
+    addBoard = (board) => {
+
+        board.CreateItem().then(result => {
+          if(result.error === false) { 
+            this.updateItems(result.data)      
+          }
+        })
+        return board;
+        
+    
+      };
+    
+      updateBoards = (board) => {
+        this.setState({ data: this.state.data.concat(board) });
+        console.log("adding item: " + board.board_id);
+      }
+    
+
     setBoard = (board_id) => {
         this.setState({ loadingBoard: true });
 
@@ -88,6 +106,7 @@ class Backlog extends React.Component {
                 <AppBar
                     boards={this.state.boards}
                     setBoard={this.setBoard}
+                    addBoard={this.addBoard}
                 />
                 {BoardContainer}
             </div>

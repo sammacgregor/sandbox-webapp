@@ -11,6 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import BoardModel from '../Models/BoardModel';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -78,11 +80,12 @@ export default function PrimarySearchAppBar(props) {
 
   const classes = useStyles();
   const [boardAnchorEl, setBoardAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const isBoardMenuOpen = Boolean(boardAnchorEl); 
+  const isBoardMenuOpen = Boolean(boardAnchorEl);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -99,24 +102,31 @@ export default function PrimarySearchAppBar(props) {
     setMobileMoreAnchorEl(null);
   };
 
+
+  const addBoard = (board) => {
+
+    this.props.addBoard(board)
+    setOpen(false)
+     
+  }
+
   
+
   const handleBoardMenuClose = (e) => {
     setBoardAnchorEl(null);
 
-    if(!e.target.value) {} else 
-    {
+    if (!e.target.value) { } else {
       props.setBoard(e.target.value);
 
     }
     handleMobileMenuClose();
 
   };
-  
+
   const handleMenuClose = (e) => {
     setAnchorEl(null);
 
-    if(!e.target.value) {} else 
-    {
+    if (!e.target.value) { } else {
       props.setBoard(e.target.value);
 
     }
@@ -140,8 +150,8 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMenuClose}
     >
 
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -161,6 +171,8 @@ export default function PrimarySearchAppBar(props) {
 
         <MenuItem onClick={handleBoardMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
       )}
+      <Divider />
+      <MenuItem onClick={addBoard}>New board</MenuItem>
     </Menu>
   );
 
@@ -176,7 +188,7 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMobileMenuClose}
     >
 
-<MenuItem onClick={handleBoardMenuOpen}>
+      <MenuItem onClick={handleBoardMenuOpen}>
         <IconButton
           aria-label="available boards"
           aria-controls="primary-boards-menu"
@@ -223,15 +235,15 @@ export default function PrimarySearchAppBar(props) {
 
             <Button className={classes.button}>Search</Button>
             <Button
-             className={classes.button}
-             edge="end"
-             aria-label="avaiable boards menu"
-             aria-controls={boardMenuId}
-             aria-haspopup="true"
-             onClick={handleBoardMenuOpen}
-             color="inherit"
-            
-             >Boards</Button>
+              className={classes.button}
+              edge="end"
+              aria-label="avaiable boards menu"
+              aria-controls={boardMenuId}
+              aria-haspopup="true"
+              onClick={handleBoardMenuOpen}
+              color="inherit"
+
+            >Boards</Button>
 
             <IconButton
               edge="end"
@@ -260,6 +272,8 @@ export default function PrimarySearchAppBar(props) {
       {renderMobileMenu}
       {renderMenu}
       {renderBoardMenu}
+      <BoardModal addBoard={this.addBoard} />
+
     </div>
   );
 }

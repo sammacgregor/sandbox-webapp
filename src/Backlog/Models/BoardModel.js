@@ -24,7 +24,7 @@ export default internal.BoardModel = class {
 
 
     CreateBoard() {
-        return new Promise(resolve => {
+
 
             return axios
                 .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards',
@@ -32,13 +32,12 @@ export default internal.BoardModel = class {
                 )
                 .then(result => {
                     console.log(result);
-                    resolve();
+                    return result.data;
 
                 })
                 .catch(error => {
                     console.error("error: ", error);
                 })
-        })
 
     }
 
