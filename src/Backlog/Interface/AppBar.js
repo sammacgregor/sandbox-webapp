@@ -166,7 +166,7 @@ export default function PrimarySearchAppBar(props) {
         <MenuItem onClick={handleBoardMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
       )}
       <Divider />
-      <BoardModal addBoard={props.addBoard} />
+      <BoardModal addBoard={props.addBoard} handleBoardMenuClose={handleBoardMenuClose} />
 
     </Menu>
   );

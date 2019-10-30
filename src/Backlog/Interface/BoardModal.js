@@ -30,7 +30,6 @@ class BoardModal extends React.Component {
   }
 
   handleCreate = () => {
-
     var now = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
 
     const board = new BoardModel(
@@ -51,6 +50,17 @@ class BoardModal extends React.Component {
 
 
 
+  handleClickOpen = (e) => {
+    this.props.handleBoardMenuClose(e);
+    this.setState({ open: true,  board_name: "" });
+    
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+
+  };
+
   handleChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -67,25 +77,16 @@ class BoardModal extends React.Component {
    
 
 
-    const handleClickOpen = () => {
-      this.setState({ open: true,  board_name: "" });
-    };
-
-    const handleClose = () => {
-      this.setState({ open: false });
-
-    };
-
 
 
 
     return (
       <div>
-      <MenuItem onClick={handleClickOpen}>New board</MenuItem>
+      <MenuItem onClick={this.handleClickOpen}>New board</MenuItem>
 
         <Dialog
           open={this.state.open}
-          onClose={handleClose}
+          onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
           maxWidth="sm"
         >
@@ -108,7 +109,7 @@ class BoardModal extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={this.handleClose} color="primary">
               Cancel
           </Button>
             <Button onClick={this.handleCreate} color="primary">

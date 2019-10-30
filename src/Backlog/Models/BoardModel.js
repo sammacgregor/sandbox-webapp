@@ -21,6 +21,24 @@ export default internal.BoardModel = class {
     }
 
 
+    DeleteBoard() {
+
+
+        return axios
+            .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + this.board_id,
+                this
+            )
+            .then(result => {
+                console.log(result);
+                return result.data;
+
+            })
+            .catch(error => {
+                console.error("error: ", error);
+            })
+
+}
+
 
 
     CreateBoard() {

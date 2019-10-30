@@ -13,11 +13,27 @@ class Backlog extends React.Component {
             boards: [],
             activeBoard: [],
             loading: true,
-            loadingRefData: true,
             loadingBoard: true,
             error: false,
             errorModal: false
         };
+    }
+
+
+    deleteBoard = () => {
+
+        this.setState({ loadingBoard: true });
+
+        console.log("deleting board: " + this.state.activeBoard.board_id)
+        var currentBoards = this.state.boards;
+        var index = currentBoards.findIndex(x => x.board_id === this.state.activeBoard.board_id)
+        this.state.activeBoard.DeleteBoard()
+        if (index !== -1) {
+            currentBoards.splice(index, 1);
+          this.setState({ boards: currentBoards });
+        }
+        this.setState({activeBoard:null})
+
     }
 
 
@@ -50,16 +66,6 @@ class Backlog extends React.Component {
         this.setState({ activeBoard: board, loadingBoard: false });
     }
 
-    loadRefData = () => {
-        this.setState({ loadingRefData: true });
-
-        var board = new BoardModel(this.state.activeBoard);
-        board.GetBoards().then(results => {
-            this.setState({ boards: results.data, loadingRefData: false })
-            this.setState({  });
-
-        })
-    };
 
     loadData = () => {
         this.setState({ loading: true });
@@ -86,7 +92,7 @@ class Backlog extends React.Component {
         if (this.state.loadingBoard) {
             return <p>Please choose a board</p>
         }
-        return <BoardContainer  key={this.state.activeBoard.board_id} board={this.state.activeBoard} />
+        return <BoardContainer  key={this.state.activeBoard.board_id} deleteBoard={this.deleteBoard} board={this.state.activeBoard} />
     }
 
 

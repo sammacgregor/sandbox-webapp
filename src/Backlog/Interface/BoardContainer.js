@@ -1,6 +1,7 @@
 
 import React from 'react';
 import SprintContainer from './SprintContainer';
+import BoardOptions from './BoardOptions';
 
 class BoardContainer extends React.Component {
     constructor(props) {
@@ -35,6 +36,26 @@ class BoardContainer extends React.Component {
 
 
 
+    addSprint = (sprint) => {
+
+        sprint.CreateSprint().then(result => {
+          if(result.error === false) { 
+
+            this.updateSprints(result.data)      
+          } else {
+                  this.setState({ errorModal: true })
+          }
+        })
+        return sprint;
+        
+    
+      };
+    
+      updateSprints = (sprint) => {
+        this.setState({ sprints: this.state.sprints.concat(sprint) });
+        console.log("adding sprint: " + sprint.sprint_id);
+      }
+    
 
 
 
@@ -59,8 +80,12 @@ class BoardContainer extends React.Component {
 
 
             <div style={{ 'marginTop': "100px" }}>
-                
+                <BoardOptions addSprint={this.addSprint} deleteBoard={this.props.deleteBoard}/>
+
                 <h1>{this.state.board.board_name} board</h1>
+
+
+
                 {this.state.sprints.map(sprint =>
 
                     <div key={sprint.sprint_id}>
