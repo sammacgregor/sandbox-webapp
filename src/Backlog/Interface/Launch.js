@@ -2,14 +2,10 @@ import React from 'react';
 import BoardContainer from './BoardContainer';
 import BoardModel from '../Models/BoardModel';
 import AppBar from './AppBar';
-import ErrorModal from './ErrorModal';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
+    Route
 } from "react-router-dom";
 class Backlog extends React.Component {
     constructor(props) {
@@ -39,13 +35,13 @@ class Backlog extends React.Component {
             <Router>
 
                 <div>
-                    <AppBar />
+                    <AppBar  />
                     <Switch>
                         <Route path="/boards">
                             <BoardContainer key={this.state.activeBoard.board_id} deleteBoard={this.deleteBoard} board={this.state.activeBoard} />
                         </Route>
                         <Route path="/boards/:BoardID">
-                            <BoardContainer key={this.state.activeBoard.board_id} deleteBoard={this.deleteBoard} board={this.state.activeBoard} />
+                            <BoardContainer />
                         </Route>
                         <Route path="/search">
                             <p>Search</p>
