@@ -175,7 +175,7 @@ export default function PrimarySearchAppBar(props) {
 
 
 
-  addBoard = (board) => {
+  const addBoard = (board) => {
 
     board.CreateBoard().then(result => {
       if(result.error === false) { 
