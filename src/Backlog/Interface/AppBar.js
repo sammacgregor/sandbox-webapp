@@ -12,6 +12,15 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import BoardModal from './BoardModal';
+import BoardModel from '../Models/BoardModel';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -82,6 +91,10 @@ export default function PrimarySearchAppBar(props) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [boardsLoading, setBoardsLoading] = React.useState(true);
+
+  const [menuBoards, setMenuBoards] = React.useState([]);
+
 
   const isBoardMenuOpen = Boolean(boardAnchorEl);
   const isMenuOpen = Boolean(anchorEl);
@@ -91,11 +104,21 @@ export default function PrimarySearchAppBar(props) {
     setAnchorEl(event.currentTarget);
   };
 
-
+  
+  const loadBoardsMenu = () => {
+    setBoardsLoading(true);
+    var board = new BoardModel(this.state.activeBoard);
+    board.GetBoards().then(results => {
+        setMenuBoards(results.data)
+        setBoardsLoading(false);
+    })
+};
 
 
   const handleBoardMenuOpen = event => {
-    setBoardAnchorEl(event.currentTarget);
+    loadBoardsMenu().then(
+      setBoardAnchorEl(event.currentTarget)
+    )
   };
 
 
@@ -163,7 +186,7 @@ export default function PrimarySearchAppBar(props) {
     >
       {props.boards.map(board =>
 
-        <MenuItem onClick={handleBoardMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
+        <MenuItem onClick={handleBoardMenuClose} component={Link} to={"boards/"+board.board_id}   key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
       )}
       <Divider />
       <BoardModal addBoard={props.addBoard} handleBoardMenuClose={handleBoardMenuClose} />
@@ -210,8 +233,9 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="absolute" color="default"
-      >
+    <Router>
+
+      <AppBar position="absolute" color="default">
         <Toolbar>
           <IconButton
             edge="start"
@@ -228,7 +252,7 @@ export default function PrimarySearchAppBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
-            <Button className={classes.button}>Search</Button>
+            <Button component={Link} to={"search"}  className={classes.button}>Search</Button>
             <Button
               className={classes.button}
               edge="end"
@@ -267,6 +291,7 @@ export default function PrimarySearchAppBar(props) {
       {renderMobileMenu}
       {renderMenu}
       {renderBoardMenu}
+      </Router>
 
     </div>
   );
