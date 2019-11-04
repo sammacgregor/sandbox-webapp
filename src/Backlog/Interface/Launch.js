@@ -44,10 +44,10 @@ class Backlog extends React.Component {
                             <BoardContainer />
                         </Route>
                         <Route path="/search">
-                            <p>Search</p>
+                            <h2 style="margin-top: 30px">Search</h2>
                         </Route>
                         <Route path="/">
-                            <p>Home</p>
+                            <h2 style="margin-top: 30px">Home</h2>
                         </Route>
                     </Switch>
 
