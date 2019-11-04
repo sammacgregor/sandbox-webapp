@@ -4,12 +4,16 @@ import SprintContainer from './SprintContainer';
 import BoardOptions from './BoardOptions';
 import BoardModel from '../Models/BoardModel';
 import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
     useParams
 } from "react-router-dom";
 class BoardContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            match: this.props.match,
             board: null,
             sprints: [],
             loading: true,
@@ -21,23 +25,35 @@ class BoardContainer extends React.Component {
     loadData = () => {
         this.setState({ loading: true });
 
-        let { boardID } = useParams();
 
-        board = new BoardModel({}).GetBoard(boardID);
+        var boardID = this.props.match.params.BoardID;
 
-        this.setState({ board: board }).then(board => {
+        var board = new BoardModel({})
 
-            board.GetSprints().then(results => {
-                this.setState({ sprints: results.data })
-                this.setState({ loading: false });
-            })
+        board.GetBoard(boardID).then(result => {
+            this.setState({ board: result.data })
+            board = new BoardModel(result.data)
 
+        board.GetSprints(boardID).then(results => {
+            this.setState({ sprints: results.data })
+            this.setState({ loading: false });
         })
+
+        });
+
+
+
     };
     componentDidMount() {
         this.loadData();
     }
 
+
+componentDidUpdate() {
+
+
+
+}
 
 
     addSprint = (sprint) => {
@@ -66,12 +82,12 @@ class BoardContainer extends React.Component {
         console.log("deleting board: " + this.state.board.board_id)
         this.state.board.DeleteBoard()
 
-    }    
+    }
 
 
 
     render() {
-        const { loading, error } = this.state;
+        const { loading, error, match } = this.state;
 
 
 

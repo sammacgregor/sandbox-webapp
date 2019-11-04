@@ -5,7 +5,9 @@ import AppBar from './AppBar';
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    useParams,
+    Redirect
 } from "react-router-dom";
 class Backlog extends React.Component {
     constructor(props) {
@@ -19,7 +21,7 @@ class Backlog extends React.Component {
 
     loadData = () => {
         this.setState({ loading: true });
-        var board = new BoardModel(this.state.activeBoard);
+        var board = new BoardModel({});
         board.GetBoards().then(results => {
             this.setState({ boards: results.data })
             this.setState({ loading: false });
@@ -30,25 +32,45 @@ class Backlog extends React.Component {
         this.loadData();
     }
 
+
+
+    getBoardContainer = () => {
+        if (this.state.loading) {
+            return <p></p>
+        }
+        else {
+            // return 
+
+        }
+    }
+
     render() {
+        const loading = this.state.loading;
+
+        // const BoardContainer = this.getBoardContainer();
+
+
+
         return (
             <Router>
 
                 <div>
-                    <AppBar  />
+                    <AppBar />
                     <Switch>
-                        <Route path="/boards">
+                    <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
+                        {/* {BoardContainer} */}
+                        <Route exact path="/boards">
                             <BoardContainer />
                         </Route>
-                        <Route path="/boards/:BoardID">
-                            <BoardContainer />
-                        </Route>
-                        <Route path="/search">
-                            <h2 style="margin-top: 30px">Search</h2>
+
+
+                        <Route exact path="/search">
+                            <h2>Search</h2>
                         </Route>
                         <Route path="/">
-                            <h2 style="margin-top: 30px">Home</h2>
+                            <h2>Home</h2>
                         </Route>
+                        <Redirect from='*' to='/' />
                     </Switch>
 
                 </div>

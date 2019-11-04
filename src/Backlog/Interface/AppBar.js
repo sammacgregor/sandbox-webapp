@@ -14,12 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import BoardModal from './BoardModal';
 import BoardModel from '../Models/BoardModel';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Link
 } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
@@ -104,21 +99,25 @@ export default function PrimarySearchAppBar(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  
-  const loadBoardsMenu = () => {
-    setBoardsLoading(true);
-    var board = new BoardModel(this.state.activeBoard);
-    board.GetBoards().then(results => {
-        setMenuBoards(results.data)
-        setBoardsLoading(false);
-    })
-};
+
 
 
   const handleBoardMenuOpen = event => {
-    loadBoardsMenu().then(
-      setBoardAnchorEl(event.currentTarget)
-    )
+    console.log("opened board menu")
+    setBoardAnchorEl(event.currentTarget)
+
+    setBoardsLoading(true);
+    var board = new BoardModel({});
+    board.GetBoards().then(results => {
+      setMenuBoards(results.data)
+      setBoardsLoading(false);
+
+      console.log("got the board data")
+      return results.data
+    })
+
+
+
   };
 
 
@@ -127,7 +126,7 @@ export default function PrimarySearchAppBar(props) {
   };
 
 
- 
+
 
   const handleBoardMenuClose = (e) => {
     setBoardAnchorEl(null);
@@ -178,17 +177,17 @@ export default function PrimarySearchAppBar(props) {
   const addBoard = (board) => {
 
     board.CreateBoard().then(result => {
-      if(result.error === false) { 
+      if (result.error === false) {
 
-        this.updateBoards(result.data)      
+        this.updateBoards(result.data)
       } else {
-              // this.setState({ errorModal: true })
+        // this.setState({ errorModal: true })
       }
     })
     return board;
-    
 
-  };  
+
+  };
 
   const boardMenuId = 'available-boards-menu';
   const renderBoardMenu = (
@@ -201,12 +200,17 @@ export default function PrimarySearchAppBar(props) {
       open={isBoardMenuOpen}
       onClose={handleBoardMenuClose}
     >
-      {this.state.boards.map(board =>
 
-        <MenuItem onClick={handleBoardMenuClose} component={Link} to={"boards/"+board.board_id}   key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
-      )}
+      {
+        menuBoards.map(board =>
+
+          <MenuItem onClick={handleBoardMenuClose} component={Link} to={"../boards/" + board.board_id} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
+        )
+
+      }
       <Divider />
-      <BoardModal addBoard={this.addBoard} handleBoardMenuClose={handleBoardMenuClose} />
+      <BoardModal addBoard={addBoard} handleBoardMenuClose={handleBoardMenuClose} />
+
 
     </Menu>
   );
@@ -250,8 +254,6 @@ export default function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.grow}>
-    <Router>
-
       <AppBar position="absolute" color="default">
         <Toolbar>
           <IconButton
@@ -269,7 +271,7 @@ export default function PrimarySearchAppBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
-            <Button component={Link} to={"search"}  className={classes.button}>Search</Button>
+            <Button component={Link} to={"../search"} className={classes.button}>Search</Button>
             <Button
               className={classes.button}
               edge="end"
@@ -308,7 +310,6 @@ export default function PrimarySearchAppBar(props) {
       {renderMobileMenu}
       {renderMenu}
       {renderBoardMenu}
-      </Router>
 
     </div>
   );
