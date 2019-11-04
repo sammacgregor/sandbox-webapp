@@ -173,6 +173,23 @@ export default function PrimarySearchAppBar(props) {
   );
 
 
+
+
+  addBoard = (board) => {
+
+    board.CreateBoard().then(result => {
+      if(result.error === false) { 
+
+        this.updateBoards(result.data)      
+      } else {
+              // this.setState({ errorModal: true })
+      }
+    })
+    return board;
+    
+
+  };  
+
   const boardMenuId = 'available-boards-menu';
   const renderBoardMenu = (
     <Menu
@@ -184,12 +201,12 @@ export default function PrimarySearchAppBar(props) {
       open={isBoardMenuOpen}
       onClose={handleBoardMenuClose}
     >
-      {props.boards.map(board =>
+      {this.state.boards.map(board =>
 
         <MenuItem onClick={handleBoardMenuClose} component={Link} to={"boards/"+board.board_id}   key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
       )}
       <Divider />
-      <BoardModal addBoard={props.addBoard} handleBoardMenuClose={handleBoardMenuClose} />
+      <BoardModal addBoard={this.addBoard} handleBoardMenuClose={handleBoardMenuClose} />
 
     </Menu>
   );
