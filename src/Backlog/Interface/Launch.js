@@ -38,7 +38,7 @@ class Backlog extends React.Component {
                     <AppBar  />
                     <Switch>
                         <Route path="/boards">
-                            <BoardContainer key={this.state.activeBoard.board_id} deleteBoard={this.deleteBoard} board={this.state.activeBoard} />
+                            <BoardContainer />
                         </Route>
                         <Route path="/boards/:BoardID">
                             <BoardContainer />
