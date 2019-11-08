@@ -129,7 +129,7 @@ class SprintContainer extends React.Component {
               Sprint {this.state.sprint.sprint_id}: {moment(this.state.sprint.sprint_start_date).format("DD-MM-YYYY")} to {moment(this.state.sprint.SprintEnd).format("DD-MM-YYYY")}
             </Typography>
             <Typography color="textSecondary">
-              Items unassigned to a sprint will appear below
+              {this.state.sprint.sprint_goal}
           </Typography>
 
             <NewItemModal addItem={this.addItem} sprint={this.state.sprint} />

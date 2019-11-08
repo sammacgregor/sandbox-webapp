@@ -178,7 +178,6 @@ export default function PrimarySearchAppBar(props) {
     board.CreateBoard().then(result => {
       if (result.error === false) {
 
-        this.updateBoards(result.data)
       } else {
         // this.setState({ errorModal: true })
       }
