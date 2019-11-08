@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import moment from "moment";
 
-import SprintModel from '../Models/SprintModel';
+import SprintModel from '../../Models/SprintModel';
 
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -48,6 +48,8 @@ class SprintModal extends React.Component {
 
 
     console.log(this.state.sprintStartDate)
+
+console.log(moment(this.sprintStartDate).format("YYYY-MM-DD"))
 
     const sprint = new SprintModel(
       {

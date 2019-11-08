@@ -1,12 +1,13 @@
 
 import React from 'react';
-import SprintContainer from './SprintContainer';
+import SprintContainer from '../Sprint/SprintContainer';
+import SprintEmpty from '../Sprint/SprintEmpty';
 import BoardOptions from './BoardOptions';
-import BoardModel from '../Models/BoardModel';
+import BoardModel from '../../Models/BoardModel';
 import Typography from '@material-ui/core/Typography';
-import Loading from   './Loading';
+import Loading from '../Common/Loading';
 
-import Error from   './Error';
+import Error from '../Common/Error';
 import {
     BrowserRouter as Router,
     Switch,
@@ -108,13 +109,13 @@ class BoardContainer extends React.Component {
 
         if (loading) {
             return (
-                <Loading/>
+                <Loading />
 
-                );
+            );
         }
         else if (error) {
             return (
-                <Error/>
+                <Error />
             );
         }
         else return (
@@ -139,6 +140,10 @@ class BoardContainer extends React.Component {
 
                     </div>
                 )}
+                <SprintEmpty
+                    board={this.state.board}
+                    addSprint={this.addSprint}
+                />
             </div>
         );
     }

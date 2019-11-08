@@ -11,8 +11,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import BoardModal from './BoardModal';
-import BoardModel from '../Models/BoardModel';
+import BoardModal from '../Board/BoardModal';
+import BoardModel from '../../Models/BoardModel';
 import {
   Link
 } from "react-router-dom";
@@ -262,7 +262,7 @@ export default function PrimarySearchAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography component={Link} to={"../"} className={classes.title} variant="h6" noWrap>
             Backlog
           </Typography>
 

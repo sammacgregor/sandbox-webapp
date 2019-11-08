@@ -6,7 +6,7 @@ export default function error() {
         <div style={{ 'marginTop': "100px" }}>
         <Typography variant="h5" style={{textAlign:"center" }}>Whoops....</Typography>
 
-        <p>
+        <p style={{textAlign:"center"}}>
             Beep boop. We could not find the board you are looking for!
         </p>
     </div>

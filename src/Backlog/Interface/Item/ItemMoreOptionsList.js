@@ -4,7 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment';
-import ItemModel from '../Models/ItemModel';
+import ItemModel from '../../Models/ItemModel';
 
 export default function ItemMoreOptionsList(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);

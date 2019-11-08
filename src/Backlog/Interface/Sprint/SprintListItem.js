@@ -7,9 +7,9 @@ import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 
-import ItemMoreOptionsList from './ItemMoreOptionsList'
+import ItemMoreOptionsList from '../Item/ItemMoreOptionsList'
 
-import { GetIconForItemType, GetIconForItemPriority } from '../ExpressionRules/ItemHelper';
+import { GetIconForItemType, GetIconForItemPriority } from '../../ExpressionRules/ItemHelper';
 
 class SprintListItem extends React.Component {
     constructor(props) {

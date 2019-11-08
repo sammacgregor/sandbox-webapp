@@ -1,3 +1,10 @@
 # .env
-REACT_APP_SANDBOX_API_URL=https://stormy-lake-69799.herokuapp.com
+REACT_APP_SANDBOX_API_URL=http://localhost:3001
 REACT_APP_TEST_VAR=123 npm start
+
+The local environment for API is:
+REACT_APP_SANDBOX_API_URL=http://localhost:3001
+
+
+The heroku hosted api is :
+REACT_APP_SANDBOX_API_URL=https://stormy-lake-69799.herokuapp.com

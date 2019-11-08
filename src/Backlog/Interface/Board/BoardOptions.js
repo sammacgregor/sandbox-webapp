@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import SprintModal from './SprintModal';
+import SprintModal from '../Sprint/SprintModal';
 import DeleteBoardModal from './DeleteBoardModal';
 import Grid from '@material-ui/core/Grid';
 

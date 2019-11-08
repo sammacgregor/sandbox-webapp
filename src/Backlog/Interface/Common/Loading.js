@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import LoadingBar from '../Interface/LoadingBar';
+import LoadingBar from './LoadingBar';
 import { makeStyles } from '@material-ui/core/styles';
 
 

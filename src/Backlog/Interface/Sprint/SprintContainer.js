@@ -10,10 +10,10 @@ import List from '@material-ui/core/List';
 
 import SprintListItem from './SprintListItem';
 
-import NewItemModal from './NewItemModal';
+import NewItemModal from '../Item/NewItemModal';
 import moment from 'moment';
-import SprintModel from '../Models/SprintModel';
-import ItemModel from '../Models/ItemModel';
+import SprintModel from '../../Models/SprintModel';
+import ItemModel from '../../Models/ItemModel';
 
 class SprintContainer extends React.Component {
   constructor(props) {
@@ -84,7 +84,7 @@ class SprintContainer extends React.Component {
 
   getSprintItems = () => {
     if (this.state.data.length < 1) {
-      return (<div><p>There are no items in this container</p></div>)
+      return (<div><p style={{textAlign: "center"}}>There are no items in this container</p></div>)
     } else return (
 
       <div>
@@ -126,7 +126,7 @@ class SprintContainer extends React.Component {
             <Typography variant="h5" component="h2">
 
 
-              Sprint {this.state.sprint.sprint_id}: {moment(this.state.sprint.sprint_start_date).format("DD-MM-YYYY")} to {moment(this.state.sprint.SprintEnd).format("DD-MM-YYYY")}
+              Sprint {this.state.sprint.sprint_id}: {moment(this.state.sprint.sprint_start_date).format("DD-MM-YYYY")} to {moment(this.state.sprint.sprint_end_date).format("DD-MM-YYYY")}
             </Typography>
             <Typography color="textSecondary">
               {this.state.sprint.sprint_goal}

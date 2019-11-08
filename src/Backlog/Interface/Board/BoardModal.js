@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import moment from "moment";
 
-import BoardModel from '../Models/BoardModel';
+import BoardModel from '../../Models/BoardModel';
 
 import MenuItem from '@material-ui/core/MenuItem';
 
