@@ -3,6 +3,10 @@ import React from 'react';
 import SprintContainer from './SprintContainer';
 import BoardOptions from './BoardOptions';
 import BoardModel from '../Models/BoardModel';
+import Typography from '@material-ui/core/Typography';
+import Loading from   './Loading';
+
+import Error from   './Error';
 import {
     BrowserRouter as Router,
     Switch,
@@ -23,7 +27,9 @@ class BoardContainer extends React.Component {
 
 
     loadData = () => {
-        this.setState({ loading: true });
+        console.log("Loading board")
+        this.setState({ loading: true, error: false });
+        this.setState({ match: this.props.match })
 
 
         var boardID = this.props.match.params.BoardID;
@@ -31,13 +37,22 @@ class BoardContainer extends React.Component {
         var board = new BoardModel({})
 
         board.GetBoard(boardID).then(result => {
-            this.setState({ board: result.data })
-            board = new BoardModel(result.data)
 
-        board.GetSprints(boardID).then(results => {
-            this.setState({ sprints: results.data })
-            this.setState({ loading: false });
-        })
+            if (result.error === true) {
+                this.setState({ error: true, loading: false });
+                console.log("error for days")
+
+
+            } else {
+                this.setState({ board: result.data })
+                board = new BoardModel(result.data)
+
+                board.GetSprints(boardID).then(results => {
+                    this.setState({ sprints: results.data })
+                    this.setState({ loading: false });
+                })
+
+            }
 
         });
 
@@ -49,11 +64,11 @@ class BoardContainer extends React.Component {
     }
 
 
-componentDidUpdate() {
-
-
-
-}
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.match.params.BoardID !== this.props.match.params.BoardID) {
+            this.loadData();
+        }
+    }
 
 
     addSprint = (sprint) => {
@@ -92,14 +107,14 @@ componentDidUpdate() {
 
 
         if (loading) {
-            return <p>Loading ...</p>;
+            return (
+                <Loading/>
+
+                );
         }
         else if (error) {
             return (
-                <p>
-                    There was an error loading the repos.{" "}
-                    <button onClick={this.loadData}>Try again</button>
-                </p>
+                <Error/>
             );
         }
         else return (
@@ -108,9 +123,7 @@ componentDidUpdate() {
 
             <div style={{ 'marginTop': "100px" }}>
                 <BoardOptions board={this.state.board} addSprint={this.addSprint} deleteBoard={this.deleteBoard} />
-
-                <h1>{this.state.board.board_name} board</h1>
-
+                <Typography variant="h2">{this.state.board.board_name} board</Typography>
 
 
                 {this.state.sprints.map(sprint =>

@@ -103,7 +103,6 @@ export default function PrimarySearchAppBar(props) {
 
 
   const handleBoardMenuOpen = event => {
-    console.log("opened board menu")
     setBoardAnchorEl(event.currentTarget)
 
     setBoardsLoading(true);
@@ -112,7 +111,7 @@ export default function PrimarySearchAppBar(props) {
       setMenuBoards(results.data)
       setBoardsLoading(false);
 
-      console.log("got the board data")
+      console.log("Fetched board menu items")
       return results.data
     })
 
