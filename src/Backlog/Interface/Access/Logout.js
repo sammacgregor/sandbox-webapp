@@ -8,7 +8,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    useParams
+    useParams,
+    Redirect
 } from "react-router-dom";
 class Logout extends React.Component {
     constructor(props) {
