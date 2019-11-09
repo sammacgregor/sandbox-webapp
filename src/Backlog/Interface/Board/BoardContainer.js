@@ -8,12 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Loading from '../Common/Loading';
 
 import Error from '../Common/Error';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useParams
-} from "react-router-dom";
 class BoardContainer extends React.Component {
     constructor(props) {
         super(props);

@@ -7,12 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Logout from './Access/Logout';
+import BoardList from './Board/BoardList';
 
 import {
     BrowserRouter as Router,
     Switch,
     Route,
-    useParams,
     Redirect
 } from "react-router-dom";
 class Index extends React.Component {
@@ -61,10 +61,11 @@ class Index extends React.Component {
 
                 <div>
                     <AppBar auth={this.state.auth} />
+<div  style={{marginTop: "100px"}}>
                     <Switch>
                         <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
                         <Route exact path="/boards">
-                            <BoardContainer />
+                            <BoardList />
                         </Route>
                         <Route exact path="/search">
                             <h2>Search</h2>
@@ -90,7 +91,7 @@ class Index extends React.Component {
                         </Route>
                         <Redirect from='*' to='/' />
                     </Switch>
-
+</div>
                     <Box mt={5}>
                         <Copyright />
                     </Box>

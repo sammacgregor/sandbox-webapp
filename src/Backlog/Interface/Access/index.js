@@ -8,7 +8,7 @@ class AccessPage extends React.Component {
         super(props);
         this.state = {
             match: this.props.match,
-            auth: false,
+            auth: this.props.auth,
             loading: true,
             error: false,
             existingUser: this.props.existingUser
@@ -17,7 +17,7 @@ class AccessPage extends React.Component {
 
     renderPage = () => {
         if (this.state.existingUser) {
-            return <SignIn setExistingUser={this.setExistingUser} />;
+            return <SignIn toggleAuth={this.props.toggleAuth} setExistingUser={this.setExistingUser} />;
         }
         else {
             return <SignUp setExistingUser={this.setExistingUser} />;

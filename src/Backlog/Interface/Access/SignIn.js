@@ -7,24 +7,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -64,7 +52,6 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -95,6 +82,7 @@ export default function SignIn(props) {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={props.toggleAuth}
             color="primary"
             className={classes.submit}
           >
@@ -112,7 +100,6 @@ export default function SignIn(props) {
               </Link>
             </Grid>
           </Grid>
-        </form>
       </div>
     </Container>
   );

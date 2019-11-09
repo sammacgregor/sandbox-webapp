@@ -4,13 +4,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import LoadingBar from '../Common/LoadingBar';
 
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useParams,
-    Redirect
-} from "react-router-dom";
+
 class Logout extends React.Component {
     constructor(props) {
         super(props);
@@ -37,9 +31,7 @@ class Logout extends React.Component {
 
 
     render() {
-        const { loading, error, match } = this.state;
 
-        if (loading) {
             return (
                 <div style={{ 'marginTop': "100px" }}>
                     <Typography variant="h5" style={{ textAlign: "center", marginBottom: '20px' }}>Logging out...</Typography>
@@ -48,12 +40,6 @@ class Logout extends React.Component {
 
                 </div>
             )
-
-        } else {
-            <Route exact path="/">
-                <Redirect to="/" />
-            </Route>
-        }
 
 
 
