@@ -165,8 +165,8 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMenuClose}
     >
 
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem component={Link} to={"../account"} onClick={handleMenuClose}>Account</MenuItem>
+      <MenuItem component={Link} to={"../logout"}  onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
@@ -216,7 +216,7 @@ export default function PrimarySearchAppBar(props) {
 
 
   const authMenu = () => {
-    if (this.state.auth) {
+    if (this.props.auth) {
       return (
 
         <IconButton
@@ -230,6 +230,7 @@ export default function PrimarySearchAppBar(props) {
     }
     return (
       <Button
+      component={Link} to={"../login"} 
         className={classes.button}
         onClick={handleBoardMenuOpen}
         color="inherit"

@@ -26,7 +26,7 @@ class Index extends React.Component {
     }
 
     toggledAuth = () => {
-        this.setState({auth: !this.state.auth})
+        this.setState({ auth: !this.state.auth })
     }
 
     loadData = () => {
@@ -74,9 +74,23 @@ class Index extends React.Component {
                         <Route exact path="/search">
                             <h2>Search</h2>
                         </Route>
+
+                        <Route exact path="/login">
+                            <Access toggleAuth={this.toggledAuth} existingUser={true} />
+                        </Route>
+                        <Route exact path="/signup">
+                            <Access toggleAuth={this.toggledAuth} existingUser={false} />
+                        </Route>
+
+                        <Route path="/account">
+                            <h2>Account</h2>
+                        </Route>
+                        <Route path="/logout">
+                            <h2>Logout</h2>
+                        </Route>                        
+
                         <Route path="/">
                             <h2>Home</h2>
-                            <Access toggleAuth={this.toggledAuth} />
                         </Route>
                         <Redirect from='*' to='/' />
                     </Switch>

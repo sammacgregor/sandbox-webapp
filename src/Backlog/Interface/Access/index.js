@@ -11,7 +11,7 @@ class AccessPage extends React.Component {
             auth: false,
             loading: true,
             error: false,
-            existingUser: true
+            existingUser: this.props.existingUser
         };
     }
 
