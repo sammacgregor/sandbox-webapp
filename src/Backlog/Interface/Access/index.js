@@ -8,6 +8,7 @@ class AccessPage extends React.Component {
         super(props);
         this.state = {
             match: this.props.match,
+            auth: false,
             loading: true,
             error: false,
             existingUser: true

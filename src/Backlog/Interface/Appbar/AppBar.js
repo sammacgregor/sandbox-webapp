@@ -213,6 +213,34 @@ export default function PrimarySearchAppBar(props) {
     </Menu>
   );
 
+
+
+  const authMenu = () => {
+    if (this.state.auth) {
+      return (
+
+        <IconButton
+          aria-controls={menuId}
+          onClick={handleProfileMenuOpen}
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+      );
+    }
+    return (
+      <Button
+        className={classes.button}
+        onClick={handleBoardMenuOpen}
+        color="inherit"
+      >
+        Login
+</Button>
+
+    )
+  }
+
+
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -279,18 +307,12 @@ export default function PrimarySearchAppBar(props) {
               onClick={handleBoardMenuOpen}
               color="inherit"
 
-            >Boards</Button>
-
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
             >
-              <AccountCircle />
-            </IconButton>
+              Boards
+              </Button>
+            {authMenu}
+
+
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

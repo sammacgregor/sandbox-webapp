@@ -25,6 +25,10 @@ class Index extends React.Component {
         };
     }
 
+    toggledAuth = () => {
+        this.setState({auth: !this.state.auth})
+    }
+
     loadData = () => {
         this.setState({ loading: true });
         var board = new BoardModel({});
@@ -61,7 +65,7 @@ class Index extends React.Component {
             <Router>
 
                 <div>
-                    <AppBar />
+                    <AppBar auth={this.state.auth} />
                     <Switch>
                         <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
                         <Route exact path="/boards">
@@ -72,7 +76,7 @@ class Index extends React.Component {
                         </Route>
                         <Route path="/">
                             <h2>Home</h2>
-                            <Access />
+                            <Access toggleAuth={this.toggledAuth} />
                         </Route>
                         <Redirect from='*' to='/' />
                     </Switch>
