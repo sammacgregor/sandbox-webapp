@@ -48,48 +48,4 @@ export default internal.BoardModel = class {
 
     }
 
-
-
-
-
-    CreateBoard() {
-
-
-        return axios
-            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards',
-                this
-            )
-            .then(result => {
-                console.log(result);
-                return result.data;
-
-            })
-            .catch(error => {
-                console.error("error: ", error);
-            })
-
-    }
-
-
-    // GetBoard(boardID) {
-    //     return new Promise(function (resolve, reject) {
-
-    //     return axios
-    //         .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + boardID)
-    //         .then(result => {
-    //             console.log(result.data);
-
-    //             resolve(result.data);
-
-    //         })
-    //         .catch(error => {
-    //             console.error("error: ", error);
-    //             reject({ error: true, message: error })
-    //         })
-    //     })
-
-    // }
-
-
-
 }
