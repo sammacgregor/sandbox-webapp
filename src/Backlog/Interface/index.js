@@ -6,6 +6,7 @@ import Access from './Access/index';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
+import Logout from './Access/Logout';
 
 import {
     BrowserRouter as Router,
