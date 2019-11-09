@@ -25,7 +25,7 @@ class Index extends React.Component {
         };
     }
 
-    toggledAuth = () => {
+    toggleAuth = () => {
         this.setState({ auth: !this.state.auth })
     }
 
@@ -55,12 +55,6 @@ class Index extends React.Component {
     }
 
     render() {
-        const loading = this.state.loading;
-
-        // const BoardContainer = this.getBoardContainer();
-
-
-
         return (
             <Router>
 
@@ -76,10 +70,10 @@ class Index extends React.Component {
                         </Route>
 
                         <Route exact path="/login">
-                            <Access toggleAuth={this.toggledAuth} existingUser={true} />
+                            <Access toggleAuth={this.toggleAuth} existingUser={true} />
                         </Route>
                         <Route exact path="/signup">
-                            <Access toggleAuth={this.toggledAuth} existingUser={false} />
+                            <Access toggleAuth={this.toggleAuth} existingUser={false} />
                         </Route>
 
                         <Route path="/account">
@@ -87,7 +81,8 @@ class Index extends React.Component {
                         </Route>
                         <Route path="/logout">
                             <h2>Logout</h2>
-                        </Route>                        
+                            <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                        </Route>
 
                         <Route path="/">
                             <h2>Home</h2>
@@ -98,9 +93,6 @@ class Index extends React.Component {
                     <Box mt={5}>
                         <Copyright />
                     </Box>
-
-
-
 
                 </div>
             </Router>
