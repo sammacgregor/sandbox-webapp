@@ -8,7 +8,7 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import Logout from './Access/Logout';
 import BoardList from './Board/BoardList';
-
+import AdminDashboard from './Admin/AdminDashboard';
 import {
     BrowserRouter as Router,
     Switch,
@@ -74,6 +74,12 @@ class Index extends React.Component {
                         <Route exact path="/login">
                             <Access toggleAuth={this.toggleAuth} existingUser={true} />
                         </Route>
+
+                        <Route exact path="/admin">
+                            <AdminDashboard/>
+                        </Route>
+
+
                         <Route exact path="/signup">
                             <Access toggleAuth={this.toggleAuth} existingUser={false} />
                         </Route>

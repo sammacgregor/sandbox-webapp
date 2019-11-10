@@ -1,11 +1,16 @@
 import axios from "axios";
-
+const bcrypt = require('bcrypt');
+// const saltRounds = 12;
 const internal = {};
 
 export default internal.UserModel = class {
     constructor({
         user_id,
-        user_name,
+        given_name,
+        surname,
+        password,
+        mobile,
+        email,
         created_date,
         created_by,
         updated_date,
@@ -13,13 +18,23 @@ export default internal.UserModel = class {
     }) {
 
         this.user_id = user_id;
-        this.user_name = user_name;
+        this.given_name = given_name;
+        this.surname = surname;
+        this.password = password;
+        this.email = email;
+        this.mobile = mobile;
         this.created_date = created_date;
         this.created_by = created_by;
         this.updated_date = updated_date;
         this.updated_by = updated_by;
     }
 
+
+    // HashPassword(plaintextPassword) {
+    //     bcrypt.hash(plaintextPassword, saltRounds, function(err, hash) {
+    //        return hash
+    //       });
+    // }
 
     DeleteUser() {
 
@@ -41,8 +56,9 @@ export default internal.UserModel = class {
 
 
 
-    CreateUser() {
+    AddUser() {
 
+        // this.password = this.HashPassword(this.password)
 
         return axios
             .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/users',

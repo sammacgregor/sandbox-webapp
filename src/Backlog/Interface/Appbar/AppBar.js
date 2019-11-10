@@ -13,9 +13,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import BoardModal from '../Board/BoardModal';
 import BoardModel from '../../Models/BoardModel';
-import {
-  Link
-} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -166,6 +164,7 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMenuClose}
     >
 
+<MenuItem component={Link} to={"../admin"} onClick={handleMenuClose}>Admin</MenuItem>
       <MenuItem component={Link} to={"../account"} onClick={handleMenuClose}>Account</MenuItem>
       <MenuItem component={Link} to={"../logout"} onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>

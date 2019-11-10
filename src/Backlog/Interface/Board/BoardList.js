@@ -10,8 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import BoardModel from '../../Models/BoardModel';
 import {
     Link
-  } from "react-router-dom";
-  
+} from "react-router-dom";
+
 class BoardList extends React.Component {
     constructor(props) {
         super(props);
@@ -120,7 +120,7 @@ function BoardListItem(props) {
         <div>
             <ListItem component={Link} to={"../boards/" + props.board.board_id} button id={props.board.board_id}
             >
-       
+
 
                 <ListItemText><b>{props.board.board_id}</b> - {props.board.board_name}</ListItemText>
             </ListItem>
