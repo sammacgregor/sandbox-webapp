@@ -11,7 +11,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import BoardModal from './BoardModal';
+import BoardModal from '../Board/BoardModal';
+import BoardModel from '../../Models/BoardModel';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -83,11 +85,14 @@ export default function PrimarySearchAppBar(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const [menuBoards, setMenuBoards] = React.useState([]);
+
+
   const isBoardMenuOpen = Boolean(boardAnchorEl);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = event => {
+  const handleAccountMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -95,7 +100,18 @@ export default function PrimarySearchAppBar(props) {
 
 
   const handleBoardMenuOpen = event => {
-    setBoardAnchorEl(event.currentTarget);
+    setBoardAnchorEl(event.currentTarget)
+
+    var board = new BoardModel({});
+    board.GetBoards().then(results => {
+      setMenuBoards(results.data)
+
+      console.log("Fetched board menu items")
+      return results.data
+    })
+
+
+
   };
 
 
@@ -104,7 +120,7 @@ export default function PrimarySearchAppBar(props) {
   };
 
 
- 
+
 
   const handleBoardMenuClose = (e) => {
     setBoardAnchorEl(null);
@@ -133,7 +149,11 @@ export default function PrimarySearchAppBar(props) {
   };
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = (
+
+
+
+  const renderAccountMenu = (
+
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -144,11 +164,28 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMenuClose}
     >
 
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+<MenuItem component={Link} to={"../admin"} onClick={handleMenuClose}>Admin</MenuItem>
+      <MenuItem component={Link} to={"../account"} onClick={handleMenuClose}>Account</MenuItem>
+      <MenuItem component={Link} to={"../logout"} onClick={handleMenuClose}>Logout</MenuItem>
     </Menu>
   );
 
+
+
+
+  const addBoard = (board) => {
+
+    board.CreateBoard().then(result => {
+      if (result.error === false) {
+
+      } else {
+        // this.setState({ errorModal: true })
+      }
+    })
+    return board;
+
+
+  };
 
   const boardMenuId = 'available-boards-menu';
   const renderBoardMenu = (
@@ -161,57 +198,103 @@ export default function PrimarySearchAppBar(props) {
       open={isBoardMenuOpen}
       onClose={handleBoardMenuClose}
     >
-      {props.boards.map(board =>
 
-        <MenuItem onClick={handleBoardMenuClose} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
-      )}
+      {
+        menuBoards.map(board =>
+
+          <MenuItem onClick={handleBoardMenuClose} component={Link} to={"../boards/" + board.board_id} key={board.board_id} value={board.board_id}>{board.board_name}</MenuItem>
+        )
+
+      }
+
       <Divider />
-      <BoardModal addBoard={props.addBoard} handleBoardMenuClose={handleBoardMenuClose} />
+
+      <MenuItem onClick={handleBoardMenuClose} component={Link} to={"../boards"}>All boards</MenuItem>
+
+      <Divider />
+
+      <BoardModal addBoard={addBoard} handleBoardMenuClose={handleBoardMenuClose} />
+
 
     </Menu>
   );
 
+
+  const renderDesktopMenu = (
+    <div>
+      {
+        props.auth === true &&
+        <div>
+
+          <Button component={Link} to={"../search"} className={classes.button}>Search</Button>
+          <Button
+            className={classes.button}
+            edge="end"
+            aria-label="avaiable boards menu"
+            aria-controls={boardMenuId}
+            aria-haspopup="true"
+            onClick={handleBoardMenuOpen}
+            color="inherit"
+
+          >
+            Boards
+      </Button>
+
+
+          <IconButton
+            aria-controls={menuId}
+            onClick={handleAccountMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+        </div>
+      }
+      {
+        props.auth === false &&
+
+        <Button
+          component={Link} to={"../access"}
+          className={classes.button}
+          color="inherit"
+        >
+          Login / Signup
+      </Button>
+      }
+    </div>
+
+  )
+
+
+
+
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
 
-      <MenuItem onClick={handleBoardMenuOpen}>
-        <IconButton
-          aria-label="available boards"
-          aria-controls="primary-boards-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Boards</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
+    < div >
+
+
+      <Menu
+        anchorEl={mobileMoreAnchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        id={mobileMenuId}
+        keepMounted
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMobileMenuOpen}
+        onClose={handleMobileMenuClose}
+      >
+        <MenuItem onClick={handleBoardMenuOpen}><p>Boards</p></MenuItem>
+        <MenuItem component={Link} to={"../account"} onClick={handleMenuClose}>Account</MenuItem>
+        <MenuItem component={Link} to={"../logout"} onClick={handleMenuClose}>Logout</MenuItem>
+
+      </Menu>
+
+    </div >
   );
 
   return (
     <div className={classes.grow}>
-      <AppBar position="absolute" color="default"
-      >
+      <AppBar position="absolute" color="default">
         <Toolbar>
           <IconButton
             edge="start"
@@ -221,51 +304,43 @@ export default function PrimarySearchAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography component={Link} to={"../"} className={classes.title} variant="h6" noWrap>
             Backlog
           </Typography>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-
-            <Button className={classes.button}>Search</Button>
-            <Button
-              className={classes.button}
-              edge="end"
-              aria-label="avaiable boards menu"
-              aria-controls={boardMenuId}
-              aria-haspopup="true"
-              onClick={handleBoardMenuOpen}
-              color="inherit"
-
-            >Boards</Button>
-
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {renderDesktopMenu}
           </div>
           <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
+            {
+              props.auth === true &&
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            }
+            {props.auth === false &&
+
+              <Button
+                component={Link} to={"../access"}
+                className={classes.button}
+                color="inherit"
+              >
+                Login / Signup
+</Button>
+
+            }
           </div>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
+      {renderAccountMenu}
       {renderBoardMenu}
 
     </div>

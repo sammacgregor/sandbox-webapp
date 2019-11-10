@@ -1,19 +1,28 @@
 import axios from "axios";
-
+// const bcrypt = require('bcrypt');
+// const saltRounds = 12;
 const internal = {};
 
-export default internal.BoardModel = class {
+export default internal.UserModel = class {
     constructor({
-        board_id,
-        board_name,
+        user_id,
+        given_name,
+        surname,
+        password,
+        mobile,
+        email,
         created_date,
         created_by,
         updated_date,
         updated_by
     }) {
 
-        this.board_id = board_id;
-        this.board_name = board_name;
+        this.user_id = user_id;
+        this.given_name = given_name;
+        this.surname = surname;
+        this.password = password;
+        this.email = email;
+        this.mobile = mobile;
         this.created_date = created_date;
         this.created_by = created_by;
         this.updated_date = updated_date;
@@ -21,11 +30,17 @@ export default internal.BoardModel = class {
     }
 
 
-    DeleteBoard() {
+    // HashPassword(plaintextPassword) {
+    //     bcrypt.hash(plaintextPassword, saltRounds, function(err, hash) {
+    //        return hash
+    //       });
+    // }
+
+    DeleteUser() {
 
 
         return axios
-            .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + this.board_id,
+            .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v2/users/' + this.user_id,
                 this
             )
             .then(result => {
@@ -41,11 +56,12 @@ export default internal.BoardModel = class {
 
 
 
-    CreateBoard() {
+    AddUser() {
 
+        // this.password = this.HashPassword(this.password)
 
         return axios
-            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards',
+            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/users',
                 this
             )
             .then(result => {
@@ -60,11 +76,11 @@ export default internal.BoardModel = class {
     }
 
 
-    GetBoard(boardID) {
+    GetUser(UserID) {
         return new Promise(function (resolve, reject) {
 
         return axios
-            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + boardID)
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/Users/' + UserID)
             .then(result => {
                 console.log(result.data);
 
@@ -79,30 +95,11 @@ export default internal.BoardModel = class {
 
     }
 
-
-    GetSprints(board_id) {
-        console.log("requested sprints for board: " + board_id)
-
-        return axios
-            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + board_id + '/sprints')
-            .then(result => {
-                console.log(result.data);
-                return result.data;
-
-            })
-            .catch(error => {
-                console.error("error: ", error);
-            })
-            
-
-    }
-
-
-    GetBoards() {
+    GetUsers() {
 
         return new Promise(function (resolve, reject) {
             axios
-                .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards')
+                .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/users')
                 .then(result => {
                     console.log(result.data);
                     resolve(result.data)

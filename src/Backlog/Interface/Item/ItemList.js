@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '@material-ui/core/List';
 
-import SprintListItem from './SprintListItem';
+import SprintListItem from '../Sprint/SprintListItem';
 
 class ItemList extends React.Component {
   constructor(props) {

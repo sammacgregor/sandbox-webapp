@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import moment from "moment";
 
-import SprintModel from '../Models/SprintModel';
+import SprintModel from '../../Models/SprintModel';
 
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -45,14 +45,20 @@ class SprintModal extends React.Component {
 
     var now = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
 
+
+
+    console.log(this.state.sprintStartDate)
+
+console.log(moment(this.sprintStartDate).format("YYYY-MM-DD"))
+
     const sprint = new SprintModel(
       {
         sprint_goal: this.state.sprintGoal,
         sprint_estimated_points: null,
         sprint_target_points: null,
         board_id: this.state.board.board_id,
-        sprint_start_date: now,
-        sprint_end_date: now,
+        sprint_start_date: moment(this.sprintStartDate).format("YYYY-MM-DD"),
+        sprint_end_date:  moment(this.sprintEndDate).format("YYYY-MM-DD"),
         created_by: "system.user",
         created_date: now,
         updated_by: "system.user",
@@ -68,8 +74,12 @@ class SprintModal extends React.Component {
 
 
 
-  handleDateChange = date => {
+  handleStartDateChange = date => {
     this.setState({sprintStartDate:date})
+  }
+
+  handleEndDateChange = date => {
+    this.setState({sprintEndDate:date})
   }
 
   
@@ -97,7 +107,7 @@ class SprintModal extends React.Component {
 
 
     const handleClickOpen = () => {
-      this.setState({ open: true, sprint_start_date: null, sprint_end_date: null, sprint_goal: "" });
+      this.setState({ open: true, sprintStartDate: null, sprintEndDate: null, sprintGoal: "" });
     };
 
     const handleClose = () => {
@@ -151,7 +161,7 @@ class SprintModal extends React.Component {
               type="datePicker"
               value={this.state.sprintStartDate}
               label="Sprint start date"
-              onChange={this.handleDateChange}
+              onChange={this.handleStartDateChange}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}
@@ -167,7 +177,7 @@ class SprintModal extends React.Component {
               name="sprintEndDate"
               type="datePicker"
               value={this.state.sprintEndDate}
-              onChange={this.handleDateChange}
+              onChange={this.handleEndDateChange}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}

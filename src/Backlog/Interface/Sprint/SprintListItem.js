@@ -6,10 +6,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
+import ItemMoreOptionsList from '../Item/ItemMoreOptionsList'
 
-import ItemMoreOptionsList from './ItemMoreOptionsList'
-
-import { GetIconForItemType, GetIconForItemPriority } from '../ExpressionRules/ItemHelper';
+import { GetIconForItemType, GetIconForItemPriority } from '../../ExpressionRules/ItemHelper';
 
 class SprintListItem extends React.Component {
     constructor(props) {
@@ -41,7 +40,7 @@ class SprintListItem extends React.Component {
 
         return (
             <div>
-                <ListItem button id={this.props.data.item_id}
+                <ListItem  button id={this.props.data.item_id}
                     onClick={this.handleSelect}
                 >
                     <ListItemIcon>
