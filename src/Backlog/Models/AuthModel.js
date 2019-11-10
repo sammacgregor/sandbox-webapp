@@ -1,41 +1,25 @@
 import axios from "axios";
-
+// const bcrypt = require('bcrypt');
+// const saltRounds = 12;
 const internal = {};
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
-export default internal.BoardModel = class {
+export default internal.UserModel = class {
     constructor({
-        email,
-        password
+        password,
+        email
+
     }) {
 
-        this.email = email;
         this.password = password;
+        this.email = email;
     }
-
-
-    HashPassword(password) {
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(password, salt, function(err, hash) {
-                return hash;
-            });
-        });        
-    }
-
-
 
     Authenticate() {
 
-        var hashPassword = this.HashPassword(this.password)
-
 
         return axios
-            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/auth',
-                {
-                    email: this.email,
-                    password: hashPassword
-                }
+            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v1/auth',
+                this
             )
             .then(result => {
                 console.log(result);
@@ -47,5 +31,7 @@ export default internal.BoardModel = class {
             })
 
     }
+
+
 
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 // const saltRounds = 12;
 const internal = {};
 

@@ -254,7 +254,7 @@ export default function PrimarySearchAppBar(props) {
         props.auth === false &&
 
         <Button
-          component={Link} to={"../login"}
+          component={Link} to={"../access"}
           className={classes.button}
           color="inherit"
         >
@@ -328,7 +328,7 @@ export default function PrimarySearchAppBar(props) {
             {props.auth === false &&
 
               <Button
-                component={Link} to={"../login"}
+                component={Link} to={"../access"}
                 className={classes.button}
                 color="inherit"
               >

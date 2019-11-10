@@ -7,18 +7,12 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import BoardModel from '../../Models/BoardModel';
-import {
-    Link
-} from "react-router-dom";
-
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 
 import UserModal from './User/UserModal';
 
 import UserModel from '../../Models/UserModel'
+
+import Loading from '../Common/Loading'
 
 class UsersView extends React.Component {
     constructor(props) {
@@ -63,9 +57,9 @@ class UsersView extends React.Component {
             .then(result => {
                 if (result.error === true) {
                     this.setState({ error: true, loading: false });
-                }  else {
+                } else {
                     this.setState({ error: false, loading: false, users: result.data });
-                    
+
                 }
             })
 
@@ -75,16 +69,21 @@ class UsersView extends React.Component {
     };
     componentDidMount() {
         this.loadData();
-        this.setState({ loading: false });
+
 
     }
 
     getUserItems = () => {
-        if (this.state.users.length < 1) {
+        if (this.state.loading === true) {
+           return <Loading />
+        }
+        else if (this.state.users.length < 1) {
             return (<div><p style={{ textAlign: "center" }}>There are no users</p></div>)
         } else return (
 
             <div>
+                        <UserModal addUser={this.addUser} />
+
                 <List component="nav" aria-label="facts about item">
                     {this.state.users.map(user =>
                         <div key={user.user_id}>
@@ -97,14 +96,11 @@ class UsersView extends React.Component {
     }
 
     render() {
-        const { loading, error } = this.state;
+        const { error } = this.state;
         var UserListItems = this.getUserItems();
 
 
-        if (loading) {
-            return <p>Loading ...</p>;
-        }
-        else if (error) {
+       if (error) {
             return (
                 <p>
                     There was an error loading the boards....
@@ -118,7 +114,6 @@ class UsersView extends React.Component {
 
                     <CardContent>
                         <Typography variant="h5" component="h2">Users</Typography>
-                        <UserModal addUser={this.addUser} />
 
                         {UserListItems}
 
@@ -139,7 +134,7 @@ function UserListItem(props) {
         <div>
             <ListItem button
             >
-       
+
 
                 <ListItemText><b>{props.user.given_name}</b> - {props.user.surname}</ListItemText>
             </ListItem>

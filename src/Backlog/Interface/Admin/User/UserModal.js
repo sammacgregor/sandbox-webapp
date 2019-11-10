@@ -6,10 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Draggable from 'react-draggable';
-// import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
 import moment from "moment";
 
 import UserModel from '../../../Models/UserModel';

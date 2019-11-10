@@ -11,6 +11,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AuthModel from "../../Models/AuthModel"
+import { Redirect } from "react-router-dom";
+import Login from './Login';
+
 
 
 
@@ -39,8 +43,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn(props) {
+function SignIn(props) {
   const classes = useStyles();
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -52,6 +57,8 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        <form className={classes.form} noValidate onSubmit={props.handleSubmit}>
+
           <TextField
             variant="outlined"
             margin="normal"
@@ -60,6 +67,7 @@ export default function SignIn(props) {
             id="email"
             label="Email Address"
             name="email"
+            onChange={props.handleChange}
             autoComplete="email"
             autoFocus
           />
@@ -68,6 +76,7 @@ export default function SignIn(props) {
             margin="normal"
             required
             fullWidth
+            onChange={props.handleChange}
             name="password"
             label="Password"
             type="password"
@@ -81,8 +90,9 @@ export default function SignIn(props) {
           <Button
             type="submit"
             fullWidth
+
             variant="contained"
-            onClick={props.toggleAuth}
+            // onClick={props.handleSubmit}
             color="primary"
             className={classes.submit}
           >
@@ -101,7 +111,89 @@ export default function SignIn(props) {
               </Link>
             </Grid>
           </Grid>
+        </form>
       </div>
     </Container>
   );
 }
+
+
+class SignInForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      authOutcome: ""
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.authenticate = this.authenticate.bind(this);
+  }
+
+
+
+
+  handleCreate = () => {
+
+
+
+
+  };
+
+
+  authenticate() {
+
+    const auth = new AuthModel(
+      {
+        email: this.state.email,
+        password: this.state.password
+      }
+    );
+
+    auth.Authenticate()
+      .then(result => {
+        if (result.error) {
+          this.setState({ authOutcome: false })
+        } else {
+          this.setState({ authOutcome: true })
+
+        }
+      })
+      .catch(error => {
+        this.setState({ authOutcome: false })
+
+      })
+
+
+  }
+
+
+  handleChange(event) {
+
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    this.authenticate()
+  }
+
+  render() {
+    return (
+      <div>
+        {
+          this.state.authOutcome === true ? <Redirect to="/auth"/> : 
+      <SignIn handleChange={this.handleChange} handleSubmit={this.handleSubmit} {...this.props} />
+
+          }
+
+      </div>
+    );
+  }
+}
+
+export default SignInForm
+

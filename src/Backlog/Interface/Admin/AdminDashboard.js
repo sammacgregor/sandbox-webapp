@@ -7,17 +7,10 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import BoardModel from '../../Models/BoardModel';
-import {
-    Link
-} from "react-router-dom";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import UsersView from './UsersView';
-import UserModel from '../../Models/UserModel'
 
 class AdminDashboard extends React.Component {
     constructor(props) {
@@ -54,10 +47,10 @@ class AdminDashboard extends React.Component {
 
         switch (this.state.selectedView) {
             case 1:
-                data = <Groups />;
+                data = <UsersView />;
                 break;
             case 2:
-                data = <UsersView />;
+                data = <GroupsView />;
                 break;
             default: data = <div></div>
                 break;
@@ -119,11 +112,11 @@ function AdminOptions(props) {
             <List component="nav" aria-label="facts about item">
                 <Divider />
                 <ListItem name="selectedView" value="1"  button onClick={(event) => props.setView(event, 1)}>
-                    <ListItemText>Groups</ListItemText>
+                    <ListItemText>Users</ListItemText>
                 </ListItem>
                 <Divider />
                 <ListItem name="selectedView" value="2" button onClick={(event) => props.setView(event, 2)}>
-                    <ListItemText>Users</ListItemText>
+                    <ListItemText>Groups</ListItemText>
                 </ListItem>
 
                 <Divider />
@@ -137,7 +130,7 @@ function AdminOptions(props) {
 
 
 
-function Groups(props) {
+function GroupsView(props) {
     return (
         <div>
             <Card>

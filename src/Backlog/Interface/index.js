@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import Logout from './Access/Logout';
 import BoardList from './Board/BoardList';
 import AdminDashboard from './Admin/AdminDashboard';
+import Login from './Access/Login'
 import {
     BrowserRouter as Router,
     Switch,
@@ -45,6 +46,8 @@ class Index extends React.Component {
 
 
 
+
+
     getBoardContainer = () => {
         if (this.state.loading) {
             return <p></p>
@@ -61,43 +64,46 @@ class Index extends React.Component {
 
                 <div>
                     <AppBar auth={this.state.auth} />
-<div  style={{marginTop: "100px"}}>
-                    <Switch>
-                        <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
-                        <Route exact path="/boards">
-                            <BoardList />
-                        </Route>
-                        <Route exact path="/search">
-                            <h2>Search</h2>
-                        </Route>
+                    <div style={{ marginTop: "100px" }}>
+                        <Switch>
+                            <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
+                            <Route exact path="/boards">
+                                <BoardList />
+                            </Route>
+                            <Route exact path="/search">
+                                <h2>Search</h2>
+                            </Route>
 
-                        <Route exact path="/login">
-                            <Access toggleAuth={this.toggleAuth} existingUser={true} />
-                        </Route>
+                            <Route exact path="/access">
+                                <Access toggleAuth={this.toggleAuth} existingUser={true} />
+                            </Route>
 
-                        <Route exact path="/admin">
-                            <AdminDashboard/>
-                        </Route>
+                            <Route exact path="/admin">
+                                <AdminDashboard />
+                            </Route>
+
+                            <Route path="/account">
+                                <h2>Account</h2>
+                            </Route>
+                            <Route path="/logout">
+                                <h2>Logout</h2>
+                                <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                            </Route>
+
+                            <Route path="/auth">
+                                <Login toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                            </Route>
 
 
-                        <Route exact path="/signup">
-                            <Access toggleAuth={this.toggleAuth} existingUser={false} />
-                        </Route>
-
-                        <Route path="/account">
-                            <h2>Account</h2>
-                        </Route>
-                        <Route path="/logout">
-                            <h2>Logout</h2>
-                            <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
-                        </Route>
-
-                        <Route path="/">
-                            <h2>Home</h2>
-                        </Route>
-                        <Redirect from='*' to='/' />
-                    </Switch>
-</div>
+                            <Route path="/">
+                                {
+                                    this.state.auth === false &&
+                                    <Access toggleAuth={this.toggleAuth} existingUser={true} />
+                                }
+                            </Route>
+                            <Redirect from='*' to='/' />
+                        </Switch>
+                    </div>
                     <Box mt={5}>
                         <Copyright />
                     </Box>

@@ -97,7 +97,7 @@ class BoardContainer extends React.Component {
 
 
     render() {
-        const { loading, error, match } = this.state;
+        const { loading, error } = this.state;
 
 
 
