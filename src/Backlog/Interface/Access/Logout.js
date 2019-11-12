@@ -43,6 +43,7 @@ class Logout extends React.Component {
         console.log("Logging out...")
         this.props.toggleAuth();
         this.setState({ loading: false })
+        localStorage.removeItem('user_id')
 
     };
 

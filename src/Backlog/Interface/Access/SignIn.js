@@ -158,6 +158,7 @@ class SignInForm extends React.Component {
           this.setState({ authOutcome: false })
         } else {
           this.setState({ authOutcome: true })
+          localStorage.setItem('user_id', result.data.user_id)
 
         }
       })

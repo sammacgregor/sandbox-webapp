@@ -20,6 +20,7 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            user_id: localStorage.getItem('user_id'),
             auth: false,
             loading: true,
             error: false,
@@ -32,6 +33,9 @@ class Index extends React.Component {
     }
 
     loadData = () => {
+        if(this.state.user_id) {
+            this.toggleAuth()
+        } 
         this.setState({ loading: true });
         var board = new BoardModel({});
         board.GetBoards().then(results => {
