@@ -13,7 +13,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AuthModel from "../../Models/AuthModel"
 import { Redirect } from "react-router-dom";
-import Login from './Login';
 
 
 
@@ -135,12 +134,6 @@ class SignInForm extends React.Component {
 
 
 
-  handleCreate = () => {
-
-
-
-
-  };
 
 
   authenticate() {
@@ -159,6 +152,7 @@ class SignInForm extends React.Component {
         } else {
           this.setState({ authOutcome: true })
           localStorage.setItem('user_id', result.data.user_id)
+          this.props.toggleAuth()
 
         }
       })

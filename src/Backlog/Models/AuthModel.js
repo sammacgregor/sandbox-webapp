@@ -14,6 +14,25 @@ export default internal.UserModel = class {
         this.email = email;
     }
 
+
+    
+    GetAuth() {
+
+
+        return axios
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/auth')
+            .then(result => {
+                console.log(result);
+                return result.data;
+
+            })
+            .catch(error => {
+                console.error("error: ", error);
+            })
+
+    }
+
+
     Authenticate() {
 
 

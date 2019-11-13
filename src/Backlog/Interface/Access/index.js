@@ -20,7 +20,7 @@ class AccessPage extends React.Component {
    
     renderPage = () => {
         if (this.state.existingUser) {
-            return <SignIn authenticate={this.authenticate} toggleAuth={this.props.toggleAuth} setExistingUser={this.setExistingUser} />;
+            return <SignIn toggleAuth={this.props.toggleAuth} setExistingUser={this.setExistingUser} />;
         }
         else {
             return <SignUp setExistingUser={this.setExistingUser} />;

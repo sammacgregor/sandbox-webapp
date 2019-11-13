@@ -5,9 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import LoadingBar from '../Common/LoadingBar';
 import { Redirect } from "react-router-dom";
 
-var session = require('express-session')
-
-
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -54,7 +51,6 @@ class Login extends React.Component {
 
     componentWillUnmount() {
         this.stopTimer()
-        this.props.toggleAuth();
 
     }
 

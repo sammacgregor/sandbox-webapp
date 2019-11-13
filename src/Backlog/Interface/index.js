@@ -10,6 +10,9 @@ import Logout from './Access/Logout';
 import BoardList from './Board/BoardList';
 import AdminDashboard from './Admin/AdminDashboard';
 import Login from './Access/Login'
+
+import AuthModel from '../Models/AuthModel'
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -20,7 +23,7 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user_id: localStorage.getItem('user_id'),
+            user_id: null,
             auth: false,
             loading: true,
             error: false,
@@ -32,10 +35,38 @@ class Index extends React.Component {
         this.setState({ auth: !this.state.auth })
     }
 
+
+
+    authenticate = () => {
+
+        var auth = new AuthModel({});
+        auth.GetAuth()
+            .then(result => {
+                if (result.error) {
+                    this.setState({ auth: false })
+                } else {
+                    this.setState({ auth: true })
+                    localStorage.setItem('user_id', result.data.user_id)
+
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                this.setState({ auth: false })
+
+            })
+
+
+    }
+
+
+
     loadData = () => {
-        if(this.state.user_id) {
+
+        this.authenticate()
+        if (this.state.user_id) {
             this.toggleAuth()
-        } 
+        }
         this.setState({ loading: true });
         var board = new BoardModel({});
         board.GetBoards().then(results => {
@@ -52,52 +83,47 @@ class Index extends React.Component {
 
 
 
-    getBoardContainer = () => {
-        if (this.state.loading) {
-            return <p></p>
-        }
-        else {
-            // return 
-
-        }
-    }
-
     render() {
         return (
             <Router>
 
                 <div>
-                    <AppBar auth={this.state.auth} />
+                    <AppBar key={this.state.auth} auth={this.state.auth} />
                     <div style={{ marginTop: "100px" }}>
                         <Switch>
-                            <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
-                            <Route exact path="/boards">
-                                <BoardList />
-                            </Route>
-                            <Route exact path="/search">
-                                <h2>Search</h2>
-                            </Route>
+                            {
+                                this.state.auth === true &&
 
-                            <Route exact path="/access">
-                                <Access toggleAuth={this.toggleAuth} existingUser={true} />
-                            </Route>
+                                <div>
+                                    <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
+                                    <Route exact path="/boards">
+                                        <BoardList />
+                                    </Route>
+                                    <Route exact path="/search">
+                                        <h2>Search</h2>
+                                    </Route>
 
-                            <Route exact path="/admin">
-                                <AdminDashboard />
-                            </Route>
+                                    <Route exact path="/access">
+                                        <Access toggleAuth={this.toggleAuth} existingUser={true} />
+                                    </Route>
 
-                            <Route path="/account">
-                                <h2>Account</h2>
-                            </Route>
-                            <Route path="/logout">
-                                <h2>Logout</h2>
-                                <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
-                            </Route>
+                                    <Route exact path="/admin">
+                                        <AdminDashboard />
+                                    </Route>
 
-                            <Route path="/auth">
-                                <Login toggleAuth={this.toggleAuth} auth={this.state.auth} />
-                            </Route>
+                                    <Route path="/account">
+                                        <h2>Account</h2>
+                                    </Route>
+                                    <Route path="/logout">
+                                        <h2>Logout</h2>
+                                        <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                                    </Route>
 
+                                    <Route path="/auth">
+                                        <Login toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                                    </Route>
+                                </div>
+                            }
 
                             <Route path="/">
                                 {
