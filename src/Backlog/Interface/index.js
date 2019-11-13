@@ -81,9 +81,47 @@ class Index extends React.Component {
 
 
 
+    authRoutes = () => {
+        if (this.state.auth) {
+            return (
+                <div>
+                    <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
+                    <Route exact path="/boards">
+                        <BoardList />
+                    </Route>
+                    <Route exact path="/search">
+                        <h2>Search</h2>
+                    </Route>
+
+                    <Route exact path="/access">
+                        <Access toggleAuth={this.toggleAuth} existingUser={true} />
+                    </Route>
+
+                    <Route exact path="/admin">
+                        <AdminDashboard />
+                    </Route>
+
+                    <Route path="/account">
+                        <h2>Account</h2>
+                    </Route>
+                    <Route path="/logout">
+                        <h2>Logout</h2>
+                        <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                    </Route>
+
+                    <Route path="/auth">
+                        <Login toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                    </Route>
+
+                </div>
+            )
+        }
+    }
 
 
     render() {
+
+        const authRoutes = this.authRoutes();
         return (
             <Router>
 
@@ -91,40 +129,7 @@ class Index extends React.Component {
                     <AppBar key={this.state.auth} auth={this.state.auth} />
                     <div style={{ marginTop: "100px" }}>
                         <Switch>
-                            {
-                                this.state.auth === true &&
-
-                                <div>
-                                    <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
-                                    <Route exact path="/boards">
-                                        <BoardList />
-                                    </Route>
-                                    <Route exact path="/search">
-                                        <h2>Search</h2>
-                                    </Route>
-
-                                    <Route exact path="/access">
-                                        <Access toggleAuth={this.toggleAuth} existingUser={true} />
-                                    </Route>
-
-                                    <Route exact path="/admin">
-                                        <AdminDashboard />
-                                    </Route>
-
-                                    <Route path="/account">
-                                        <h2>Account</h2>
-                                    </Route>
-                                    <Route path="/logout">
-                                        <h2>Logout</h2>
-                                        <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
-                                    </Route>
-
-                                    <Route path="/auth">
-                                        <Login toggleAuth={this.toggleAuth} auth={this.state.auth} />
-                                    </Route>
-                                </div>
-                            }
-
+                            {authRoutes}
                             <Route path="/">
                                 {
                                     this.state.auth === false &&

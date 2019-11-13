@@ -20,7 +20,7 @@ export default internal.UserModel = class {
 
 
         return axios
-            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/auth')
+            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v1/auth/check',{withCredentials: true})
             .then(result => {
                 console.log(result);
                 return result.data;
