@@ -42,12 +42,17 @@ class Index extends React.Component {
         var auth = new AuthModel({});
         auth.GetAuth()
             .then(result => {
-                if (result.error) {
-                    this.setState({ auth: false })
-                } else {
-                    this.setState({ auth: true })
-                    localStorage.setItem('user_id', result.data.user_id)
+                if (result.error === false) {
 
+                    console.log("authenticated")
+                    console.log(result)
+                    this.toggleAuth()
+
+
+                } else {
+
+                    this.setState({ auth: false })
+                    console.log("not authenticated")
                 }
             })
             .catch(error => {
@@ -62,17 +67,7 @@ class Index extends React.Component {
 
 
     loadData = () => {
-
         this.authenticate()
-        if (this.state.user_id) {
-            this.toggleAuth()
-        }
-        this.setState({ loading: true });
-        var board = new BoardModel({});
-        board.GetBoards().then(results => {
-            this.setState({ boards: results.data })
-            this.setState({ loading: false });
-        })
     };
 
     componentDidMount() {
@@ -81,47 +76,10 @@ class Index extends React.Component {
 
 
 
-    authRoutes = () => {
-        if (this.state.auth) {
-            return (
-                <div>
-                    <Route path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></Route>
-                    <Route exact path="/boards">
-                        <BoardList />
-                    </Route>
-                    <Route exact path="/search">
-                        <h2>Search</h2>
-                    </Route>
-
-                    <Route exact path="/access">
-                        <Access toggleAuth={this.toggleAuth} existingUser={true} />
-                    </Route>
-
-                    <Route exact path="/admin">
-                        <AdminDashboard />
-                    </Route>
-
-                    <Route path="/account">
-                        <h2>Account</h2>
-                    </Route>
-                    <Route path="/logout">
-                        <h2>Logout</h2>
-                        <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
-                    </Route>
-
-                    <Route path="/auth">
-                        <Login toggleAuth={this.toggleAuth} auth={this.state.auth} />
-                    </Route>
-
-                </div>
-            )
-        }
-    }
 
 
     render() {
 
-        const authRoutes = this.authRoutes();
         return (
             <Router>
 
@@ -129,12 +87,35 @@ class Index extends React.Component {
                     <AppBar key={this.state.auth} auth={this.state.auth} />
                     <div style={{ marginTop: "100px" }}>
                         <Switch>
-                            {authRoutes}
-                            <Route path="/">
-                                {
-                                    this.state.auth === false &&
-                                    <Access toggleAuth={this.toggleAuth} existingUser={true} />
-                                }
+                            <PrivateRoute auth={this.state.auth} path="/boards/:BoardID" render={(props) => <BoardContainer {...props} />}></PrivateRoute>
+                            <PrivateRoute auth={this.state.auth} exact path="/boards">
+                                <BoardList />
+                            </PrivateRoute>
+                            <PrivateRoute auth={this.state.auth} exact path="/search">
+                                <h2>Search</h2>
+                            </PrivateRoute>
+
+                            <Route auth={this.state.auth} exact path="/login">
+                                <Access toggleAuth={this.toggleAuth} existingUser={true} />
+                            </Route>
+
+                            <PrivateRoute auth={this.state.auth} exact path="/admin">
+                                <AdminDashboard />
+                            </PrivateRoute>
+
+                            <PrivateRoute auth={this.state.auth} path="/account">
+                                <h2>Account</h2>
+                            </PrivateRoute>
+                            <PrivateRoute auth={this.state.auth} path="/logout">
+                                <h2>Logout</h2>
+                                <Logout toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                            </PrivateRoute>
+
+                            <Route path="/auth">
+                                <Login toggleAuth={this.toggleAuth} auth={this.state.auth} />
+                            </Route>
+
+                            <Route auth={this.state.auth} path="/">
                             </Route>
                             <Redirect from='*' to='/' />
                         </Switch>
@@ -149,6 +130,30 @@ class Index extends React.Component {
         );
     }
 }
+
+
+// A wrapper for <Route> that redirects to the login
+// screen if you're not yet authenticated.
+function PrivateRoute({ children, auth, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          auth ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
+    );
+  }
+
 
 function Copyright() {
     return (

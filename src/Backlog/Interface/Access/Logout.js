@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import LoadingBar from '../Common/LoadingBar';
 import { Redirect } from "react-router-dom";
 
+import AuthModel from '../../Models/AuthModel';
 
 class Logout extends React.Component {
     constructor(props) {
@@ -41,9 +42,20 @@ class Logout extends React.Component {
     loadData = () => {
         this.startTimer()
         console.log("Logging out...")
-        this.props.toggleAuth();
-        this.setState({ loading: false })
-        localStorage.removeItem('user_id')
+        var auth = new AuthModel({});
+        auth.DestroyAuth()
+            .then(result => {
+
+                if (result.error === false) {
+                    this.props.toggleAuth()
+                    this.setState({ loading: false })
+
+                } else {
+
+                }
+            }
+
+            )
 
     };
 
@@ -65,7 +77,7 @@ class Logout extends React.Component {
 
                 <LoadingBar />
 
-                {this.state.time > 1000 &&
+                {this.state.loading === false &&
                     <Redirect to="/" />
                 }
 

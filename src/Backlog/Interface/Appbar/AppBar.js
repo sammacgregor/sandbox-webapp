@@ -254,7 +254,7 @@ export default function PrimarySearchAppBar(props) {
         props.auth === false &&
 
         <Button
-          component={Link} to={"../access"}
+          component={Link} to={"../login"}
           className={classes.button}
           color="inherit"
         >

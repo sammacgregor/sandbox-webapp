@@ -100,8 +100,14 @@ export default internal.BoardModel = class {
 
     GetBoards() {
 
+
+
         return new Promise(function (resolve, reject) {
-            axios
+
+            const transport = axios.create({
+                withCredentials:true
+            })
+            transport
                 .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards')
                 .then(result => {
                     console.log(result.data);
