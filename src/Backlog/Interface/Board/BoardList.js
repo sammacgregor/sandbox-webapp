@@ -11,6 +11,43 @@ import BoardModel from '../../Models/BoardModel';
 import {
     Link
 } from "react-router-dom";
+import BoardModal from '../Board/BoardModal';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
+
+
+
+const useStyles = makeStyles(theme => ({
+    button: {
+      margin: theme.spacing(1),
+      float:"right"
+    },
+    input: {
+      display: 'none',
+    },
+  }));
+
+
+  function BoardOptions(props) {
+    const classes = useStyles();
+  
+    return (
+      <div className={classes.root}>
+        <div>
+          <Grid container spacing={3} justify="flex-end">
+            <Grid item>
+              <BoardModal className={classes.button} />
+  
+            </Grid>
+          </Grid>
+  
+        </div>
+  
+      </div>
+    );
+  }
+  
 
 class BoardList extends React.Component {
     constructor(props) {
@@ -88,7 +125,11 @@ class BoardList extends React.Component {
             );
         }
         else return (
-            <div style={{ 'marginTop': "30px" }}>
+            <div>
+
+
+<BoardOptions/>
+
 
 
                 <Card>

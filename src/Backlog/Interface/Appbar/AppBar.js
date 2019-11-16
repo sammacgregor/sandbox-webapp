@@ -11,7 +11,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import BoardModal from '../Board/BoardModal';
 import BoardModel from '../../Models/BoardModel';
 import {Link} from "react-router-dom";
 
@@ -173,19 +172,6 @@ export default function PrimarySearchAppBar(props) {
 
 
 
-  const addBoard = (board) => {
-
-    board.CreateBoard().then(result => {
-      if (result.error === false) {
-
-      } else {
-        // this.setState({ errorModal: true })
-      }
-    })
-    return board;
-
-
-  };
 
   const boardMenuId = 'available-boards-menu';
   const renderBoardMenu = (
@@ -210,10 +196,6 @@ export default function PrimarySearchAppBar(props) {
       <Divider />
 
       <MenuItem onClick={handleBoardMenuClose} component={Link} to={"../boards"}>All boards</MenuItem>
-
-      <Divider />
-
-      <BoardModal addBoard={addBoard} handleBoardMenuClose={handleBoardMenuClose} />
 
 
     </Menu>

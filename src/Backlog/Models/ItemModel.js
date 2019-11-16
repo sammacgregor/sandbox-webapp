@@ -42,7 +42,7 @@ export default internal.ItemModel = class{
   DeleteItem() {
 
     return axios
-      .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v2/items/' + this.item_id,
+      .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v1/items/' + this.item_id,
         this
       )
       .then(result => {
@@ -62,7 +62,7 @@ export default internal.ItemModel = class{
  CreateItem() {
 
     return axios
-      .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/items',
+      .post(process.env.REACT_APP_SANDBOX_API_URL + '/v1/items',
         this
       )
       .then(result => {

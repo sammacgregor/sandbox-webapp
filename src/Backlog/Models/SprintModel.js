@@ -39,7 +39,7 @@ export default internal.SprintModel = class {
     CreateSprint() {
 
         return axios
-          .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints',
+          .post(process.env.REACT_APP_SANDBOX_API_URL + '/v1/sprints',
             this
           )
           .then(result => {
@@ -59,7 +59,7 @@ export default internal.SprintModel = class {
 async GetItems() {
 
         return axios
-            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/sprints/' + this.sprint_id + '/items')      
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/sprints/' + this.sprint_id + '/items')      
             .then(result => {
 
                 console.log(result.data);

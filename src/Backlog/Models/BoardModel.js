@@ -25,7 +25,7 @@ export default internal.BoardModel = class {
 
 
         return axios
-            .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + this.board_id,
+            .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v1/boards/' + this.board_id,
                 this
             )
             .then(result => {
@@ -45,7 +45,7 @@ export default internal.BoardModel = class {
 
 
         return axios
-            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards',
+            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v1/boards',
                 this
             )
             .then(result => {
@@ -64,7 +64,7 @@ export default internal.BoardModel = class {
         return new Promise(function (resolve, reject) {
 
         return axios
-            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + boardID)
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/boards/' + boardID)
             .then(result => {
                 console.log(result.data);
 
@@ -84,7 +84,7 @@ export default internal.BoardModel = class {
         console.log("requested sprints for board: " + board_id)
 
         return axios
-            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards/' + board_id + '/sprints')
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/boards/' + board_id + '/sprints')
             .then(result => {
                 console.log(result.data);
                 return result.data;
@@ -108,7 +108,7 @@ export default internal.BoardModel = class {
                 withCredentials:true
             })
             transport
-                .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/boards')
+                .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/boards')
                 .then(result => {
                     console.log(result.data);
                     resolve(result.data)

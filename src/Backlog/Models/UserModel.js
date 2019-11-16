@@ -40,7 +40,7 @@ export default internal.UserModel = class {
 
 
         return axios
-            .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v2/users/' + this.user_id,
+            .delete(process.env.REACT_APP_SANDBOX_API_URL + '/v1/users/' + this.user_id,
                 this
             )
             .then(result => {
@@ -61,7 +61,7 @@ export default internal.UserModel = class {
         // this.password = this.HashPassword(this.password)
 
         return axios
-            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v2/users',
+            .post(process.env.REACT_APP_SANDBOX_API_URL + '/v1/users',
                 this
             )
             .then(result => {
@@ -80,7 +80,7 @@ export default internal.UserModel = class {
         return new Promise(function (resolve, reject) {
 
         return axios
-            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/Users/' + UserID)
+            .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/Users/' + UserID)
             .then(result => {
                 console.log(result.data);
 
@@ -99,7 +99,7 @@ export default internal.UserModel = class {
 
         return new Promise(function (resolve, reject) {
             axios
-                .get(process.env.REACT_APP_SANDBOX_API_URL + '/v2/users')
+                .get(process.env.REACT_APP_SANDBOX_API_URL + '/v1/users')
                 .then(result => {
                     console.log(result.data);
                     resolve(result.data)

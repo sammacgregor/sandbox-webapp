@@ -1,6 +1,5 @@
-import 'date-fns';
-
 import React from 'react';
+import 'date-fns';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -122,7 +121,6 @@ console.log(moment(this.sprintStartDate).format("YYYY-MM-DD"))
       <div>
 
         <Button variant="outlined" color="primary" onClick={handleClickOpen}
-        //  className={classes.dialogButton}
         >
           New Sprint
       </Button>
@@ -130,7 +128,7 @@ console.log(moment(this.sprintStartDate).format("YYYY-MM-DD"))
           open={this.state.open}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
-          maxWidth="sm"
+          maxWidth="lg"
         >
 
           <DialogTitle id="dialog-title">New Sprint</DialogTitle>
@@ -195,6 +193,7 @@ console.log(moment(this.sprintStartDate).format("YYYY-MM-DD"))
           </Button>
           </DialogActions>
         </Dialog >
+
       </div >
     )
   }

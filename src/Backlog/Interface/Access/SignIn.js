@@ -12,9 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import AuthModel from "../../Models/AuthModel"
-import { Redirect } from "react-router-dom";
 
-
+import Login from './Login'
 
 
 const useStyles = makeStyles(theme => ({
@@ -180,7 +179,7 @@ class SignInForm extends React.Component {
     return (
       <div>
         {
-          this.state.authOutcome === true ? <Redirect to="/auth"/> : 
+          this.state.authOutcome === true ? <Login/> : 
       <SignIn handleChange={this.handleChange} handleSubmit={this.handleSubmit} {...this.props} />
 
           }

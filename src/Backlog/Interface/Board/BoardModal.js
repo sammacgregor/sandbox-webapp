@@ -10,7 +10,6 @@ import moment from "moment";
 
 import BoardModel from '../../Models/BoardModel';
 
-import MenuItem from '@material-ui/core/MenuItem';
 
 
 class BoardModal extends React.Component {
@@ -42,16 +41,29 @@ class BoardModal extends React.Component {
       }
     );
 
-    this.props.addBoard(board)
+    this.addBoard(board)
     this.setState({ open: false })
      
 
   };
 
 
+  
+  addBoard = (board) => {
+
+    board.CreateBoard().then(result => {
+      if (result.error === false) {
+
+      } else {
+        // this.setState({ errorModal: true })
+      }
+    })
+    return board;
+
+
+  };
 
   handleClickOpen = (e) => {
-    this.props.handleBoardMenuClose(e);
     this.setState({ open: true,  board_name: "" });
     
   };
@@ -82,7 +94,7 @@ class BoardModal extends React.Component {
 
     return (
       <div>
-      <MenuItem onClick={this.handleClickOpen}>New board</MenuItem>
+        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>New board</Button>
 
         <Dialog
           open={this.state.open}
@@ -96,17 +108,18 @@ class BoardModal extends React.Component {
             <DialogContentText>
               Enter new board details
           </DialogContentText>
-            <TextField
+          <TextField
               autoFocus
               margin="dense"
               id="name"
               name="boardName"
               onChange={this.handleChange}
 
-              label="Board Name"
+              label="Board name"
               type="boardName"
               fullWidth
             />
+
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
